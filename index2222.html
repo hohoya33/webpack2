@@ -48,7 +48,7 @@
             <div class="slides">
                 <section>
                     <img src="img/logo-on-dark-bg.png " alt="" style="width:50%">
-                    <p style="margin:-30px 0 120px 0">JavaScript 모듈 번들러 (Bundler)</p>
+                    <p style="margin:-30px 0 120px 0">-프론트엔드 웹 개발환경 셋팅-</p>
                     <p>2017. 7. 19.</p>
                     <p>IT 개발2팀 UI파트 - 김재호</p>
                 </section>
@@ -59,8 +59,8 @@
                         <li>Javascript 모듈의 필요성</li>
                         <li>webpack 소개</li>
                         <li>webpack 설치 가이드</li>
-                        <li>webpack 번들링</li>
-                        <li>webpack 설정 (Front-end 개발환경 셋팅)</li>
+                        <li>webpack 사용방법 (번들링)</li>
+                        <li>webpack 설정</li>
                     </ul>
                 </section>
 
@@ -113,7 +113,7 @@
 
 
                     <section>
-                        <h2>Javascript 모듈화 및 의존성 관리</h2>
+                        <h2>Javascript 의존성 관리</h2>
                         <p>코드베이스가 커지면 유지보수가 쉽도록 코드를 나누어 관리하는 모듈 시스템이 필요</p>
                          <ul>
                             <li>CommonJS (서버 사이드)</li>
@@ -230,7 +230,7 @@
                      	<h2>모듈 번들러란? (Browserify, webpack)</h2>
 
                      	<img src="img/cover-1.jpg" width="500">
-                     	<p>아직 브라우저에서 지원이 되지 않는 모듈(import, export)을<br>사용 할 수 있게 해주는 도구</p>
+                     	<p>브라우저에서 아직 지원이 되지 않는 모듈을<br>사용 할 수 있도록 하는것이 모듈 번들러의 주요 기능</p>
 
                         <aside class="notes">
 						https://blog.qmo.io/javascript-tooling-the-evolution-and-future-of-js-front-end-build-tools/
@@ -248,25 +248,14 @@
                     </section>
 
                     <section>
-                        <h2>모듈 번들러 webpack</h2>
+                        <h2></h2>
                         <img src="https://cdn.filepicker.io/api/file/QIuZVivBTFWIu8LN9i3E" alt="">
+						그림 1. 모듈 번들러 웹팩
 
-                        <p>프론트엔드가 중요해지면서 JS자체만으로도 엄청난 의존 관계.</p>
-                        <p>webpack은 여러가지 디펜던시(의존성)들을 효율적인 방법으로 통합하여 하나의 번들 파일로 생성.</p>
-                        <p>이렇게 번들링된 파일을 브라우저(HTML)에서 로드.</p>
-                    </section>
-
-
-
-                    <section>
-                        <h2>webpack 주요기능</h2>
-                        <ul>
-                            <li>CSS 전처리기(SASS/LESS), ES6, TypeScript 컴파일 가능</li>
-                            <li>HTML, CSS, 이미지도 JavaScript 파일 내부에서 로드 가능</li>
-                            <li>직관적이고 효율적으로 의존성을 관리</li>
-                            <li>플러그인 시스템을 통해서 강력한 기능들을 사용 (Common chunk, Uglify, HMR..)</li>
-                            <li>빌드 시스템으로써도 손색이 없기에 React의 공식 빌드 시스템으로 채택</li>
-                        </ul>
+                        <p>번들러 끝판왕 웹팩
+                         그림처럼 여러 파일들을 하나로 합쳐줍니다.
+                            JS가 점점 중요해지면서 JS 자체만으로도 엄청난 <strong>의존 관계</strong>가 생겼습니다.</p>
+                        <p>ES6 모듈, RequireJS, CommonJS같은 JS 모듈 시스템들이 나오면서 JS 파일도 다른 프로그래밍 언어처럼 모듈 개념이 생겼습니다. import나 require로 js끼리 서로 의존합니다. 특히 노드로 만들다 보면 모듈이 기본 수 백개에서 많게는 수 만개까지 갑니다. 이런 것을 하나의 JS로 합쳐주는 거죠.</p>
                     </section>
 
                 </section>
@@ -329,8 +318,8 @@
 	$ touch [fileName]                      # 파일 생성
 	$ npm init -y                               # 입력 생략
 	$ npm i jquery                            # i  === install
-	$ npm i -S jquery                        # -S === --save 의존 패키지로 설치
-	$ npm i -D jquery                        # -D === --save-dev 개발환경 의존 패키지로 설치
+	$ npm i -S jquery                        # -S === --save
+	$ npm i -D jquery                        # -D === --save-dev
 	$ npm un -D jquery                     # un === uninstall
 
 	# Node.js Path API
@@ -367,7 +356,7 @@
 				<section>
 
 					<section>
-                    	<h2>webpack 번들링</h2>
+                    	<h2>webpack 사용방법 (번들링)</h2>
                    	</section>
 
 
@@ -448,27 +437,18 @@
 				<section>
 
 					<section>
-                    	<h2>webpack 설정<br>Front-end 개발환경 셋팅</h2>
+                    	<h2>webpack 설정</h2>
                    	</section>
 
+
                     <section>
-                        <h2>webpack의 기본적인 개념</h2>
+                        <h2>webpack의 기본적인 4가지 컨셉</h2>
                         <ul>
-                            <li><strong>Entry:</strong> 웹팩이 파일을 읽어들이기 시작하는 부분을 설정</li>
-                            <li><strong>Output:</strong> 번들링 결과물에 대한 설정</li>
-                            <li><strong>Module:</strong> 번들링을 진행할 때 처리해야 하는 task를 실행<br>babel loader, css/sass loader</li>
-                            <li><strong>Plugins:</strong> 확장기능<br>코드를 난독화 압축(Uglify), 공통된 코드를 분리(Common chunk)</li>
+                        	<li>Entry: 웹팩이 파일을 읽어들이기 시작하는 부분을 설정</li>
+                        	<li>Output: 결과물이 어떻게 나올지 설정</li>
+                        	<li>Module: 웹팩을 통해 번들링을 진행할 때 처리해야 하는 태스크들을 실행</li>
+                        	<li>Plugins: 확장기능</li>
                         </ul>
-
-                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
-    module.exports = {
-        entry: { ... },
-        output: { ... },
-        module: { ... },
-        plugins: [ ... ]
-    }
-                        </code></pre>
-
                     </section>
 
 
@@ -480,16 +460,21 @@
                         </code></pre>
 
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
-    //node에서 제공되는 path 사용하여 OS에 따른 파일경로 이슈를 방지
-    const path = require('path');
 
+
+    // node에서 제공되는 path 사용하여 OS에 따른 파일경로 이슈를 방지
+    const path = require('path');
 	module.exports = {
-	    entry: './src/app.js',  //진입 파일의 경로 + 파일명
-        output: {
-            publicPath: '/', //브라우저에서 접근하는 경로
-            path: path.resolve(__dirname, 'dist'), //디렉터리경로
-            filename: 'app.bundle.js' //번들링된 파일명
-        }
+        // entry는 진입 파일의 경로 + 파일명
+	    entry: './src/app.js',
+
+        // output은 webpack의 번들링 결과물에 대한 설정
+        // path - 디렉터리경로
+        // publicPath - 브라우저에서 접근하는 경로
+        // fileName - 번들링된 파일명
+	    output: {
+	        filename: './dist/app.bundle.js'
+	    }
 	}
                         </code></pre>
                     </section>
@@ -843,6 +828,350 @@ minify 옵션으로 min 파일을 만들 수 있고, <a href="https://github.com
     }
                         </code></pre>
                     </section>
+
+
+
+
+                    <section>
+                        <h2>Transpiled from ES2015 to ES5 with Babel</h2>
+                        <p></p>
+                        <pre><code class="nohighlight">
+    npm install babel-core babel-loader babel-preset-es2015 --save-dev
+                        </code></pre>
+
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
+    module.exports = {
+        // ...
+        module: {
+            rules: [
+                test: /\.js$/,
+                exclude: [/node_modules/],
+                use: [{
+                    loader: 'babel-loader',
+                    options: {presets: ['es2015']}
+                }]
+            ]
+        }
+    };
+                        </code></pre>
+
+
+
+                    </section>
+
+
+
+                    <section>
+                        <h2>스타일, CSS and Sass 로더</h2>
+                        <p></p>
+                        <pre><code class="nohighlight">
+    npm install css-loader style-loader --save-dev
+    npm install sass-loader node-sass --save-dev
+                        </code></pre>
+
+
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
+    module.exports = {
+        // ...
+        module: {
+            rules: [
+                {
+                    test: /\.scss$/,
+                    use : ['style-loader', 'css-loader', 'sass-loader']
+                }
+            ]
+        }
+    };
+                        </code></pre>
+
+
+                        <aside class="notes">
+참고 : 로더는 RTL (오른쪽에서 왼쪽)으로 처리됩니다.
+
+CSS를로드하기 위해 webpack을 사용하려면 css-loader 와 style-loader라는 두 개의 로더가 필요합니다 .
+css-loader는 CSS 파일의 내용을로드하고
+style-loader는 CSS를 페이지에 삽입합니다.
+
+
+
+로더를 설치 한 후 webpack에 다음과 같이 css 파일을 처리하도록 지시 할 수 있습니다.
+                        </aside>
+                    </section>
+
+
+                    <section>
+                        <h2>스타일, scss 변환 순수 css 변환</h2>
+                        <p></p>
+                        <pre><code class="nohighlight">
+    npm install extract-text-webpack-plugin@2.0.0 --save-dev
+                        </code></pre>
+
+
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
+    var ExtractTextPlugin = require("extract-text-webpack-plugin");
+    module.exports = {
+        // ...
+        module: {
+            rules: [
+                {
+                    test: /\.scss$/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: ['css-loader','sass-loader'],
+                        publicPath: '/dist'
+                    })
+                }
+            ]
+        },
+        plugins: [
+            new ExtractTextPlugin({
+                filename: 'app.bundle.css',
+                disable: false,
+                allChunks: true
+            })
+        ]
+    };
+                        </code></pre>
+
+
+
+                    </section>
+
+                    <section>
+                        <h2></h2>
+
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;app.js</em><code class="javascript">
+    const css = require('./app.scss');
+
+    console.log('Hello from Webpack');
+                        </code></pre>
+
+                        <pre><em class="file_name"><i class="devicons devicons-html5"></i>&nbsp;index.html</em><code class="html">
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;meta charset="utf-8"&gt;
+            &lt;link rel="stylesheet" href="dist/app.bundle.css"&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;h1&gt;Hello Webpack&lt;/h1&gt;
+            &lt;script type="text/javascript" src="dist/app.bundle.js"&gt;&lt;/script&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;
+                        </code></pre>
+
+
+
+                    </section>
+
+                    <section>
+                        <h2>개발 서버</h2>
+                        <pre><code class="nohighlight">
+    npm install webpack-dev-server -D
+    webpack-dev-server
+                        </code></pre>
+
+                        <pre><em class="file_name"><i class="devicons devicons-npm"></i>&nbsp;package.json</em><code class="javascript">
+  "scripts": {
+    //"dev": "webpack -d --watch",
+    "dev": "webpack-dev-server",
+    "prod": "webpack -p"
+  }
+                        </code></pre>
+
+                        <pre><code class="nohighlight">
+    npm run dev
+                        </code></pre>
+
+                        <aside class="notes">
+                        유사 browsersync의 라이브 리로드, 웹팩은 생성 dev에 서버 쉽게 우리의 코드를 확인 할 수 있습니다. 서버는 프로젝트의 모든 변경 사항을 수신 한 다음 해당 변경 사항을 브라우저에 주입합니다.
+                        </aside>
+                    </section>
+
+
+                    <section>
+                        <h2>Webpack Dev Server Configuration</h2>
+
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
+    var ExtractTextPlugin = require("extract-text-webpack-plugin");
+    module.exports = {
+        // ...
+        devServer: {
+            contentBase: path.join(__dirname, "dist"),
+            compress: true,
+            port: 9000,
+            stats: "errors-only",
+            open: true
+        }
+    };
+                        </code></pre>
+
+
+                        <aside class="notes">
+                        문법이 잘못되어 저장하면 에러를 cmd 창에 보여준다.
+                        </aside>
+                    </section>
+
+
+
+                    <section>
+                        <h2>Webpack 출력 최적화</h2>
+                        <pre><code class="nohighlight">
+    webpack -p
+                        </code></pre>
+
+                        <aside class="notes">
+                        우리의 최종 webpack 번들은 생산에 적합하지 않으며, 많은 주석과 공백이 있습니다. 우리는 모두 축소가 제작용 스크립트와 스타일을 준비하는 데 좋다는 것을 알고 있습니다.
+                        프로덕션 환경에서 번들을 준비하려면 프로젝트의 루트에서 다음을 실행할 수 있습니다.
+                        </aside>
+                    </section>
+
+
+
+
+
+                    <section>
+                        <h2>entry</h2>
+                        <p>entry 부분이 웹팩이 파일을 읽어들이기 시작하는 부분입니다. app이 객체의 키로 설정되어 있는데 이 부분 이름은 자유롭게 바꾸시면 됩니다. 저 키가 app이면 결과물이 app.js로 나오고, zero면 zero.js로 나옵니다.</p>
+
+
+새롭게 보이는 속성을 각각 살펴봅시다:
+
+entry - 번들의 엔트리 포인트로써 번들하기 색션에서 이미 논의했습니다. Webpack은 여러 번들을 생성하는 진입점을 허용하기 때문에 배열입니다.
+
+output - Webpack의 최종 결과물이 되는 형태를 명시합니다.
+
+path - Webpack의 최종 결과물이 되는 형태를 명시합니다.
+filename - 번들 파일의 이름을 지정합니다.
+이제 webpack 명령을 실행하면, dit라는 폴더에 bundle.js 파일을 생성합니다.
+
+
+                        <pre><code class="javascript">
+    {
+      entry: {
+        app: '',
+        zero: '',
+      }
+    }
+                        </code></pre>
+                        <pre><code class="javascript">
+    {
+      entry: {
+        app: ['a.js', 'b.js'],
+      },
+    }
+                        </code></pre>
+
+                        <p></p>
+
+
+                        <aside class="notes">
+                            위의 경우는 a.js랑 b.js가 한 파일로 엮여 app.js라는 결과물로 나옵니다. 이렇게 웹팩은 entry의 js 파일부터 시작해서 import, require 관계로 묶여진 다른 js까지 알아서 파악한 뒤 모두 entry에 기재된 키 개수만큼으로 묶어줍니다.
+                        </aside>
+                    </section>
+
+
+                    <section>
+                        <h2>output</h2>
+                        <p>이제 결과물이 어떻게 나올지 설정을 해야 합니다.</p>
+
+                        <pre><code class="javascript">
+    {
+      output: {
+        path: '/dist',
+        filename: '[name].js',
+        publicPath: '/',
+      },
+    }
+                        </code></pre>
+
+                        <aside class="notes">
+                            path랑 publicPath가 헷갈릴 수 있겠네요. path는 output으로 나올 파일이 저장될 경로입니다. publicPath는 파일들이 위치할 서버 상의 경로입니다. Express에 비유하면 express.static 경로와 비슷한 겁니다. filename을 보시면 좀 이상하게 생긴 게 있습니다. [name].js라고 되어 있는데요. 이렇게 써줘야 [name]에 아까 app이나 zero가 들어가 app.js, zero.js로 결과물이 나옵니다.
+
+다른 옵션으로는 [hash]나 [chunkhash]가 있습니다. [hash]는 매번 웹팩 컴파일 시 랜덤한 문자열을 붙여줍니다. 따라서 캐시 삭제 시 유용합니다. [hash]가 컴파일할 때마다 랜덤 문자열을 붙여준다면 [chunkhash]는 파일이 달라질 때에만 랜덤 값이 바뀝니다. 이것을 사용하면 변경되지 않은 파일들은 계속 캐싱하고 변경된 파일만 새로 불러올 수 있습니다.
+                        </aside>
+                    </section>
+
+
+
+                    <section>
+                        <h2>loader</h2>
+                        <p>이제부터 막강한 웹팩의 기능들이 나옵니다. 바로 로더(loader)입니다. 보통 웹팩을 사용하면 babel을 주로 같이 사용합니다. ES2015 이상의 문법들은 IE같은 구형 브라우저랑 호환시키기 위함인데요. 또는 jsx같은 react 문법을 컴파일하려고 하는 목적도 있습니다. babel을 웹팩2와 연결시켜 볼까요? 일단 설치부터 해봅니다.</p>
+
+                        <pre><code class="javascript">
+    npm i -D babel-loader babel-core babel-preset-es2015 babel-preset-react babel-preset-stage-0
+                        </code></pre>
+
+                        <p>일단 babel-loader와 babel-core는 필수이고요. 나머지 preset들은 선택입니다. react는 react 하시는 분만 설치하면 되고요. stage-0은 es2015보다도 더 최신 기술을 위한 겁니다.</p>
+
+                        <pre><code class="javascript">
+    {
+      module: {
+        rules: [{
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react', 'stage-0'],
+          },
+          exclude: ['/node_modules'],
+        }],
+      },
+    }
+                        </code></pre>
+
+                        <aside class="notes">
+혹시 다른 사이트에서 rules나 use 대신 loaders를 쓰고, options 대신 query를 쓰는 곳이 있다면, 웹팩1에 대한 강좌입니다. 웹팩2에서 바뀌었습니다. (물론 하위호환을 위해 여전히 지원하긴 합니다)
+
+위와 같이하면 test 정규식조건(js나 jsx 파일)에 부합하는 파일들을 loader에 지정한 로더가 컴파일해줍니다. options는 로더에 대한 옵션으로 아까 설치한 presets들을 적용하고 있는 게 보입니다. exclude는 제외할 폴더나 파일로, 바벨로 컴파일하지 않을 것들을 지정해줍니다. 바벨로는 컴파일하지 않지만 웹팩으로는 컴파일합니다. 반대로 include로 꼭 이 로더를 사용해서 컴파일할 것들을 지정해줄 수도 있습니다.
+                        </aside>
+                    </section>
+
+
+                    <section>
+                        <h2>plugin</h2>
+                        <p>플러그인은 약간 부가적인 기능입니다. 다양한 플러그인들이 나와있는데 이를 사용하면 효과적으로 번들링을 할 수 있습니다. 예를 들면 압축을 한다거나, 핫리로딩을 한다거나, 파일을 복사하는 등의 부수적인 작업을 할 수 있습니다. 다양한 플러그인들이 패키지로 존재하기 때문에 쇼핑하듯 골라보세요!</p>
+
+                        <pre><code class="javascript">
+    {
+      plugins: [
+        new webpack.LoaderOptionsPlugin({
+          minimize: true,
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+          sourceMap: true,
+          compress: {
+            warnings: true,
+          },
+        }),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': 'production',
+        }),
+      ],
+    }
+                        </code></pre>
+
+                        <aside class="notes">
+                        대표적인 웹팩 기본 제공 플러그인들입니다. LoaderOptionsPlugin은 로더들에게 옵션을 넣어주는 플러그인이고요. UglifyJsPlugin이 압축, console 제거, 소스맵 보존 등을 하는 플러그인이고, DefinePlugin은 JS 변수를 치환해주는 플러그인입니다. 이외에도 BannersPlugin, IgnorePlugin, EnvironmentPlugin, ContextReplacementPlugin 등 기본 제공 플러그인도 어마어마합니다.
+
+웹팩2에서 플러그인들의 변경점이 있습니다. DedupePlugin은 사라졌고, OccurrenceOrderPlugin은 기본으로 켜져 있으니 더 이상 추가하지 마세요.
+
+용량 관계로 다음 강좌에서 계속 이어집니다! 이번 시간에 주로 js를 번들링하는 방법을 살펴봤다면, 다음 시간에는 css랑 기타 파일들 번들링 방법을 알아보겠습니다.
+                        </aside>
+                    </section>
+
+
+                    <section>
+                        <h2>output</h2>
+                        <p>이제 결과물이 어떻게 나올지 설정을 해야 합니다.</p>
+
+                        <pre><code class="javascript">
+
+                        </code></pre>
+
+
+                    </section>
+
+
+
 
 
 
