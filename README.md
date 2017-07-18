@@ -24,6 +24,10 @@
 html 파싱중 스크립트 태그를 만나면 파싱을 잠시 중단하고 
 스크립트를 다운받아 실행한 후에 다시 파싱 작업을 진행.
 
+자바스크립트 코드를 작성할때, 
+전역변수를 남발해서 사용하게 되면 후에 유지보수를 할때 크나큰 문제를 겪게 됩니다.
+(다른 개발자가 정의해 놓은 전역변수의 이름과 동일한 이름의 전역변수를 내가 선언했고, 예상치 못한 오류가 발생)
+
 ## Javascript의 전역 문제 해결 방법
 즉시실행 함수 블럭에서 선언된 변수는 전역 스코프를 오염시키지 않습니다.
 즉시 실행 함수 표현식(IIFE)은 선언되었을 때 바로 실행되는 익명 함수이다.
@@ -43,13 +47,17 @@ App.Models.Note = function() {};
 ## Javascript의 의존성 관리
 
 코드베이스가 커지면 유지보수가 쉽도록 코드를 나누어 관리하는 모듈 시스템이 필요. (코드의 모듈화)
+프론트앤드의 규모가 커짐에 따라서 모듈화 및 의존성관리가 절대적으로 필요
 
 의존성이란? 각 모듈이 존재하는데, A모듈에서 B모듈의 코드 사용할 때 의존성을 가진다고 말함
+
 
 JavasScript가 브라우저 언어를 넘어 범용적으로 사용하기 위해 필요한 기술이 바로 모듈화였고, 
 이를 논의 하기 위해 자발적으로 만들어진 그룹이 CommonJS 워킹 그룹이다.
 
 2000년대 후반 자바스크립트에 모듈 시스템을 도입하여 범용(Common) 언어로 거듭나려는 시도가 있었는데, 그것이 바로 CommonJS 워킹 그룹입니다. 
+
+
 
 이 모듈 시스템은 Node.js에 도입되어 서버 사이드에서 큰 성공을 거두게 됩니다. 
 그러나 이 방식은 모든 모듈 명세가 로컬 디스크에 있어야 했기 때문에 브라우저 환경에서는 모든 모듈을 불러올 때까지 아무것도 할 수 없게되는 단점이 있었고, 
@@ -57,6 +65,9 @@ JavasScript가 브라우저 언어를 넘어 범용적으로 사용하기 위해
 
 개발자들에 의해 AMD와 CommonJS 두가지 방법으로 모듈 관리 환경이 발전 
 JS 모듈 관리를 위한 코딩 표준을 정의하려는 노력이 있었음(CommonJS와 AMD)
+
+모듈화 및 의존성 관리 방법으로 대표되는 2가지 방식
+
 
 - CommonJS
     - JS의 활용성을 높이려는 자발적 워킹그룹
@@ -72,7 +83,7 @@ JS 모듈 관리를 위한 코딩 표준을 정의하려는 노력이 있었음(
 	- jQuery를 비롯 다수의 오픈소스 솔루션이 AMD를 지지
 		- jQuery의 경우, 1.7부터 AMD 모듈 등록 기능을 지원하기 시작
 	- CommonJS와 마찬가지로 JS 모듈 관리에 관한 코딩 표준을 제시함
-
+프론트앤드쪽 모듈화에서는 AMD 방식이 효율적
 
 ## CommonJS
 ```js
@@ -240,7 +251,7 @@ Module Bundler 는 브라우저단에서도 CommonJS 스타일을 사용 할 수
 이는 대표적으로 Browserify와 webpack이 있음
 
 
-# webpack으로 트렌디한 웹 개발환경 만들기 (설치 가이드)
+# webpack으로 프론트엔드 개발환경 만들기 (설치 가이드)
 
 ## Node.js 설치
 webpack을 사용하기 위해선 Node.js가 필수로 설치 되어 있어야 합니다.
@@ -300,6 +311,7 @@ $ npm install webpack -g
 or
 $ npm install webpack --save-dev
 ```
+Webpack이 제공하는 기능 중 로컬에서도 사용해야 하는 플러그인이 존재하므로 로컬에도 설치
 시작하기 위해서 우리는 webpack 을 전역과 프로젝트내에 설치해야합니다.
 전역에 설치함으로써 우리는 webpack 의 명령어를 사용할 수 있고, 
 프로젝트내에 설치함으로써 
@@ -310,9 +322,11 @@ $ npm install webpack --save-dev
 html5 기본 템플릿 (vscode: !+tab)
 ```html
 <!-- index.html -->
- <html>
+<!DOCTYPE html>
+<html>
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>webpack2</title>
     </head>
     <body>
         <h1>Hello webpack</h1>
@@ -514,13 +528,13 @@ module.exports = {
 //----- index.html -----
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title><%= htmlwebpackPlugin.options.title %></title>
-</head>
-<body>
-	<div id="root"></div>
-</body>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title><%= htmlWebpackPlugin.options.title %></title>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
 </html>
 ```
 
@@ -1147,3 +1161,9 @@ js 코드에서도 ES6 및 import 를 사용하는 예제를 만들어봐야겠�
     let sample = new Sample('velopert');
     sample.say();
 ```
+
+ES6와 웹팩의 조합을 이용한 뒤로, 어느순간 웹 프론트엔드 개발이 오로지 자바스크립트 개발인 것처럼 되어버렷다. 
+예전에는 프론트엔드라하면 자바스크립트의 사용을 최소화하고 HTML과 CSS의 극대화한 것과 같이 느껴졌지만, 
+이제는 자바스크립트 애플리케이션 개발중에 시각적인 효과(UI)를 위해 덤으로 HTML과 CSS를 얹혀놓는 느낌이 되어버렸다. 
+또한 내가 만들어놓은 모듈들은 ES6의 클래스로 저장을 시켜놓아서 Angular.js이건, React이건 어느 프레임워크에서도 동작이 되는 서비스모듈로 만들수 있게되었다.
+재사용성을 넘어서 범용성의 극대화가 되었다.
