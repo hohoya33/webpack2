@@ -145,9 +145,9 @@
                     <section>
                         <h2>AMD (Asynchronouse Module Definition)</h2>
                          <ul>
-                            <li>브라우저에서의 JS 모듈 활용성을 높일 목적으로 CommonJS에서 파생됨</li>
-                            <li>jQuery를 비롯 다수의 오픈소스 솔루션이 AMD를 지지</li>
-                            <li>AMD 표준을 준수하는 가장 대표적인 RequierJS</li>
+                            <li>웹 브라우저에서 JS 모듈 활용성을 높일 목적으로 CommonJS에서 파생됨</li>
+                            <li>가장 대표적으로 RequierJS</li>
+                            <li>jQuery 및 다수의 오픈소스 라이브러리들이 AMD를 지지</li>
                             <li>CommonJS와 마찬가지로 JS 모듈 관리에 관한 코딩 표준을 제시함</li>
                         </ul>
 
@@ -206,7 +206,7 @@
                         <h2>ES6 - Modules</h2>
                         <ul>
                             <li>export 모듈 선언 / import 모듈 사용</li>
-                            <li>전역변수 오염없이 모듈을 선언하고 사용할 수 있도록 지원</li>
+                            <li>타 프로그래밍 언어와 같이 스크립트들을 모듈화 함으로써 관리 용이</li>
                             <li>자주 사용되는 코드를 필요할 때마다 재사용</li>
                         </ul>
 
@@ -251,7 +251,8 @@
                         <h2>모듈 번들러 webpack</h2>
                         <img src="https://cdn.filepicker.io/api/file/QIuZVivBTFWIu8LN9i3E" alt="">
 
-                        <p>프론트엔드가 중요해지면서 JS자체만으로도 엄청난 의존 관계.</p>
+                        <p>수 많은 구성요소로 이루어진 웹 페이지 (html, js, css, 이미지, 웹폰트, json..)</p>
+                        <p>자바스크립트 자체만으로도 엄청난 의존 관계</p>
                         <p>webpack은 여러가지 디펜던시(의존성)들을 효율적인 방법으로 통합하여 하나의 번들 파일로 생성.</p>
                         <p>이렇게 번들링된 파일을 브라우저(HTML)에서 로드.</p>
                     </section>
@@ -259,12 +260,12 @@
 
 
                     <section>
-                        <h2>webpack 주요기능</h2>
+                        <h2>webpack 장점</h2>
                         <ul>
                             <li>CSS 전처리기(SASS/LESS), ES6, TypeScript 컴파일 가능</li>
-                            <li>HTML, CSS, 이미지도 JavaScript 파일 내부에서 로드 가능</li>
-                            <li>직관적이고 효율적으로 의존성을 관리</li>
-                            <li>플러그인 시스템을 통해서 강력한 기능들을 사용 (Common chunk, Uglify, HMR..)</li>
+                            <li>HTML, CSS, 이미지마저 JavaScript 파일 내부에서 로드 가능</li>
+                            <li>직관적이고 효율적인 의존성 관리</li>
+                            <li>플러그인을 통해 편리한 기능들을 사용 (Common chunk, Uglify, HMR..)</li>
                             <li>빌드 시스템으로써도 손색이 없기에 React의 공식 빌드 시스템으로 채택</li>
                         </ul>
                     </section>
@@ -333,7 +334,7 @@
 	$ npm i -D jquery                        # -D === --save-dev 개발환경 의존 패키지로 설치
 	$ npm un -D jquery                     # un === uninstall
 
-	# Node.js Path API
+	# Node.js Path API # Node에서 제공되는 path 사용, OS에 따른 파일경로 이슈 방지
 
 	# 현재 파일 경로
 	__filename;                                  # D:\workspace\diagram\main.js
@@ -377,7 +378,7 @@
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
         &lt;head&gt;
-            &lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"/&gt;
+            &lt;meta charset="utf-8"&gt;
             &lt;title&gt;webpack2&lt;/title&gt;
         &lt;/head&gt;
         &lt;body&gt;
@@ -391,7 +392,7 @@
 
                     <section>
                         <h2>번들 파일 생성 (app.bundle.js)</h2>
-                        <p>다음과 같이 명령어를 실행하여 모듈을 컴파일할 수 있습니다.</p>
+                        <p>다음과 같이 명령어를 실행하여 번들 파일을 생성 할 수 있습니다.</p>
 
 						<pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;app.js</em><code class="javascript">
 	console.log('Hello Webpack');
@@ -409,7 +410,7 @@
 
 						<pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;hello.js</em><code class="javascript">
 	export default function hello() {
-	    console.log('Hello Webpack!!!!');
+	    console.log('Module Hello Webpack!!!!');
 	}
                         </code></pre>
 
@@ -482,7 +483,6 @@
                         </code></pre>
 
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
-    // Node에서 제공되는 path 사용, OS에 따른 파일경로 이슈 방지
     const path = require('path');
 
     module.exports = {
@@ -515,7 +515,7 @@
                     <section>
                         <h2>html webpack plugin</h2>
                         <ul>
-                            <li>JS, CSS 파일들을 html에 자동 생성</li>
+                            <li>번들링된 JS, CSS 파일들을 html에 자동으로 추가</li>
                             <li>hash : JS, CSS파일에 해시값 추가, 파일 캐시 방지</li>
                             <li>minify : html코드 압축</li>
                             <li>template : <a href="https://github.com/mde/ejs" target="_blank">ejs템플릿</a>, 커스터마이징 가능</li>
@@ -534,9 +534,9 @@
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Project Demo',
-            minify: {
-                collapseWhitespace: true
-            },
+            // minify: {
+            //     collapseWhitespace: true
+            // },
             hash: true,
             template: './src/index.html'
         })
@@ -550,10 +550,11 @@
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
         &lt;head&gt;
-            &lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"/&gt;
+            &lt;meta charset="utf-8"&gt;
             &lt;title&gt;&lt;%= htmlWebpackPlugin.options.title %&gt;&lt;/title&gt;
         &lt;/head&gt;
         &lt;body&gt;
+            &lt;h1&gt;Hello Webpack&lt;/h1&gt;
             &lt;div id="root"&gt;&lt;/div&gt;
         &lt;/body&gt;
     &lt;/html&gt;
@@ -587,6 +588,8 @@
 
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;app.js</em><code class="javascript">
     const css = require('./app.css');
+    or
+    import './app.css'; //ES6
                         </code></pre>
                     </section>
 
@@ -609,7 +612,7 @@
                         </code></pre>
 
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;app.js</em><code class="javascript">
-    const css = require('./app.scss');
+    import './app.scss';
                         </code></pre>
                     </section>
 
@@ -652,20 +655,18 @@
 
 
                     <section>
-                        <h2>ES2015 to ES5 with Babel</h2>
+                        <h2>Babel</h2>
                         <p>IE환경을 지원하면서도 ES2015를 쓰기 위해서는 babel 같은 트랜스파일러(Transpiler) 필요</p>
-                        <p>webpack에서는 이를 위해 babel-loader에 통과시켜서 ES5 이하의 JavaScript로 변환ㅎ</p>
+                        <p>babel-loader에 통과시켜서 ES5 이하의 JavaScript로 변환</p>
 
                         <pre><code class="bash">
-    $ npm i --save-dev babel-loader babel-core babel-preset-env
+    $ npm i babel-loader babel-core babel-preset-es2015 --save-dev
                         </code></pre>
 
 
                         <pre><em class="file_name"><i class="devicons devicons-npm"></i>&nbsp;.babelrc</em><code class="javascript">
     {
-        "presets": [
-            ["es2015", { "modules": false }]
-        ]
+        "presets": ["es2015"]
     }
                         </code></pre>
                     </section>
@@ -682,7 +683,7 @@
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        presets: ['es2015']
                     }
                 }
             }
@@ -691,14 +692,10 @@
                         </code></pre>
                     </section>
 
-                </section>
-
-
-
 
                     <section>
-                        <h2>webpack dev server</h2>
-                        <p></p>
+                        <h2>webpack 개발 서버</h2>
+                        <p>로컬 개발을 위한 webpack dev server를 옵션으로 제공</p>
 
                         <pre><code class="bash">
     $ npm i webpack-dev-server --save-dev
@@ -712,10 +709,10 @@
         devtool: 'source-map',
         devServer: {
             contentBase: path.join(__dirname, 'dist'),
+            publicPath: '/dist',
             compress: true,
             port: 8080,
             stats: 'errors-only',
-            hot: true,
             open: true,
             openPage: ''
         }
@@ -741,8 +738,8 @@
     # 전체 페이지를 로딩 한다.(Live Reload)
     $ webpack-dev-server --inline
 
-    # 부분 로딩  또는 전체 페이지 로딩
-    $ webpack-dev-server --hot --inline
+    # 부분 로딩
+    $ webpack-dev-server --hot
                         </code></pre>
                     </section>
 
@@ -763,22 +760,35 @@
                     </section>
 
 
+                    <section>
+                        <h2>RimRaf</h2>
+                        <p>배포시 기존 dist 폴더 삭제</p>
+
+                        <pre><code class="bash">
+    $ npm i rimraf --save-dev
+                        </code></pre>
+
+                        <pre><em class="file_name"><i class="devicons devicons-npm"></i>&nbsp;package.json</em><code class="javascript">
+     "scripts": {
+        "dev": "webpack-dev-server",
+        "prod": "npm run clean && webpack -p",
+        "clean": "rimraf ./dist/*"
+    }
+                        </code></pre>
+
+                    </section>
 
 
 
                     <section>
                         <h2>File Loader</h2>
                         <p>webpack은 모든 것을 모듈로 처리</p>
-                        <p>file-loader를 통해 파일을 복사(실제 사용되는 파일만 복사)</p>
+                        <p>file-loader를 통해 파일을 복사 (실제 사용되는 파일만 복사)</p>
 
                         <pre><code class="bash">
     $ npm i file-loader --save-dev
-
-    # 이미지 최적화
-    $ npm i image-webpack-loader --save-dev
                         </code></pre>
                     </section>
-
 
 
                     <section>
@@ -786,10 +796,9 @@
     module: {
         rules: [
             {
-                test: /\.(jpe?g|png|gif|svg)$/i,
+                test: /\.(jpe?g|png|gif)$/i,
                 use: [
-                    'file-loader?name=images/[name].[ext]',
-                    'image-webpack-loader'
+                    'file-loader?name=img/[name].[ext]'
                 ]
             }
         ]
@@ -811,14 +820,14 @@
 
 
                     <section>
-                        <p>10Kb 미만인 svg 파일을 url-loader로 처리하도록 변경</p>
+                        <p>10Kb 미만인 font, svg 파일을 url-loader로 처리하도록 변경</p>
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
     module: {
         rules: [
             {
-                test: /\.(woff2?|svg)$/
+                test: /\.(woff2?|svg)$/,
                 use: [
-                        'url-loader?limit=10000&name=fonts/[name].[ext]' // 10kb
+                        'url-loader?limit=10000' // 10kb
                 ]
             }
         ]
@@ -826,6 +835,58 @@
                         </code></pre>
                     </section>
 
+
+                    <section>
+                        <h2>React</h2>
+                        <p></p>
+
+                        <pre><code class="bash">
+    $ npm i react react-dom --save-dev
+    $ npm i babel-preset-react --save-dev
+                        </code></pre>
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;.babelrc</em><code class="javascript">
+    {
+        "presets":[
+            "es2015", "react"
+        ]
+    }
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['es2015', 'react']
+                    }
+                }
+            }
+        ]
+    }
+                        </code></pre>
+                    </section>
+
+
+                    <section>
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;app.js</em><code class="javascript">
+    import './app.scss';
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+
+    ReactDOM.render(
+         &lt;h1 className="react"&gt;Welcome, world! &lt;/h1&gt;,
+        document.getElementById('root')
+    );
+                        </code></pre>
+                    </section>
+
+                </section>
 
 
 
