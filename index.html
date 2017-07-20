@@ -693,34 +693,6 @@
                     </section>
 
 
-
-                    <section>
-                        <h2>소스맵 (Source Map)</h2>
-                        <p>원본 소스와 난독화된 소스를 매핑해주는 방법</p>
-                        <p>*.map 파일을 통해 제공되고, json 형태</p>
-                        <p>devtool은 js 파일의 소스맵하고만 관련, (s)css의 소스맵과는 무관</p>
-
-                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
-     module: {
-        rules: [
-            {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader?sourceMap', 'sass-loader?sourceMap'],
-                    publicPath: '/dist'
-                })
-            }
-        ]
-    },
-    devtool: 'source-map',
-                        </code></pre>
-                    </section>
-
-
-
-
-
                     <section>
                         <h2>webpack 개발 서버</h2>
                         <p>로컬 개발을 위한 webpack dev server를 옵션으로 제공</p>
@@ -768,14 +740,14 @@
                         </code></pre>
                     </section>
 
+
                     <section>
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
     const webpack = require('webpack');
 
     module.exports = {
         devServer: {
-            hot: true,
-            inline: true
+            hot: true
         },
         plugins: [
             new webpack.HotModuleReplacementPlugin()
@@ -783,6 +755,31 @@
     }
                         </code></pre>
                     </section>
+
+
+                    <section>
+                        <h2>소스맵 (Source Map)</h2>
+                        <p>원본 소스와 난독화된 소스를 매핑해주는 방법</p>
+                        <p>*.map 파일을 통해 제공되고, json 형태</p>
+                        <p>devtool은 js 파일의 소스맵하고만 관련, (s)css의 소스맵과는 무관</p>
+
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
+     module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader?sourceMap', 'sass-loader?sourceMap'],
+                    publicPath: '/dist'
+                })
+            }
+        ]
+    },
+    devtool: 'inline-source-map',
+                        </code></pre>
+                    </section>
+
 
 
                     <section>
@@ -800,7 +797,6 @@
         "clean": "rimraf ./dist/*"
     }
                         </code></pre>
-
                     </section>
 
 
