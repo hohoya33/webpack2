@@ -1,10 +1,9 @@
 ### webpack 발표자료 정리
-### webpack 발표자료 정리
 
 # Javascript 모듈의 필요성
 ## Javascript의 문제점
 * 글로벌(전역) 스코프가 쉽게 오염
-* 동일한 이름을 가진 변수 사용 (이름 충돌 문제)
+* 동일한 이름을 가진 변수 사용
 * 올바른 의존성 순서
 * 웹페이지가 커질수록 script 태그 수 의 증가
 
@@ -106,7 +105,7 @@ AMD가 CommonJS보다 더 유연한 방법을 제공 합니다.
 AMD 명세는 define() 함수(클로저를 이용한 모듈 패턴)를 이용해 모듈을 구현하므로 전역변수 문제가 없다.
 
 ## UMD (Universal Module Definition)
-IIFE + AMD + CommonJS 를 모두 지원하는 모듈
+AMD + CommonJS + IIFE 를 모두 지원하는 모듈
 AMD, CommonJS 순으로 지원 여부를 확인하고, 둘 다 지원하지 않을 경우, IIFE 방식을 사용.
 
 ```js
@@ -948,10 +947,10 @@ module: {
         options: {
           presets: ['env', 
             {
-                // tree shaking
                 'modules': false
             }
           ]
+          // presets: ['env', { 'modules': false }, 'react']
         }
       }
     }

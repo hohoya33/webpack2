@@ -693,6 +693,34 @@
                     </section>
 
 
+
+                    <section>
+                        <h2>소스맵 (Source Map)</h2>
+                        <p>원본 소스와 난독화된 소스를 매핑해주는 방법</p>
+                        <p>*.map 파일을 통해 제공되고, json 형태</p>
+                        <p>devtool은 js 파일의 소스맵하고만 관련, (s)css의 소스맵과는 무관</p>
+
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
+     module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader?sourceMap', 'sass-loader?sourceMap'],
+                    publicPath: '/dist'
+                })
+            }
+        ]
+    },
+    devtool: 'source-map',
+                        </code></pre>
+                    </section>
+
+
+
+
+
                     <section>
                         <h2>webpack 개발 서버</h2>
                         <p>로컬 개발을 위한 webpack dev server를 옵션으로 제공</p>
@@ -705,17 +733,14 @@
 
                     <section>
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
-    module.exports = {
-        devtool: 'source-map',
-        devServer: {
-            contentBase: path.join(__dirname, 'dist'),
-            publicPath: '/dist',
-            compress: true,
-            port: 8080,
-            stats: 'errors-only',
-            open: true,
-            openPage: ''
-        }
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        publicPath: '/dist',
+        compress: true,
+        port: 8080,
+        stats: 'errors-only',
+        open: true,
+        openPage: ''
     }
                         </code></pre>
 
@@ -846,9 +871,7 @@
                         </code></pre>
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;.babelrc</em><code class="javascript">
     {
-        "presets":[
-            "es2015", "react"
-        ]
+        "presets": ["es2015", "react"]
     }
                         </code></pre>
                     </section>
@@ -863,7 +886,9 @@
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['es2015', 'react']
+                        options: {
+                            presets: ['es2015', 'react']
+                        }
                     }
                 }
             }
