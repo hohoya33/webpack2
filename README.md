@@ -1,12 +1,12 @@
 ### webpack 발표자료 정리
 
 # Javascript 모듈의 필요성
+
 ## Javascript의 문제점
 * 글로벌(전역) 스코프가 쉽게 오염
 * 동일한 이름을 가진 변수 사용
 * 올바른 의존성 순서
 * 웹페이지가 커질수록 script 태그 수 의 증가
-
 
 자바스크립트를 어느정도 다뤄본 사람이라면 자바스크립트의 스코프 관리가 지저분하다는 것을 알 수 있습니다.
 
@@ -127,6 +127,7 @@ AMD, CommonJS 순으로 지원 여부를 확인하고, 둘 다 지원하지 않�
     return myFunc;
 }));
 ```
+
 ## 모듈 시스템의 도입
 <img src="img/es6.png" alt="" width="400">
 
@@ -173,7 +174,6 @@ Bundler 혹은 Preprocessor(프리프로세서)등을 사용해서 안정적인 
 아직 브라우저 에서 import나 export가 구현되지 않음. (모듈 번들러가 기능을 대신 지원)
 webpack은 이런 한계를 극복하기 위한 도구 중 하나로 자바스크립트 모듈화 도구.
 
-
 <img src="https://cdn.filepicker.io/api/file/QIuZVivBTFWIu8LN9i3E" alt="">
 그림 1. 모듈 번들러 웹팩
 
@@ -185,7 +185,6 @@ http/2에서는 하나의 커넥션에 동시에 여러 파일들을 요청할 �
 하지만 아직 보편화되어있지 않기 때문에 현재 주로 사용하는 
 http/1.1에서는 커넥션 하나를 열어 하나씩 요청을 보내야합니다. 
 하나의 요청이 끝나야 다음 요청을 보낼 수 있기 때문에 요청이 많을수록 비효율적
-
 
 개발자인 저희가 희생해야죠. 
 바로 요청 수를 줄이는 겁니다! 
@@ -218,17 +217,6 @@ HTML, CSS, 이미지마저 자바스크립트 내부에서 로드 가능합니�
 이제까지 index.html에 각 플러그인 마다 필요한 자바스크립트와 
 CSS파일들을 일일이 써넣어주어야 하는 것이 상당히 귀찮은 작업이었지만,
 웹팩을 이용하면 직관적이고 효율적으로 디펜던시(종속성)들을 관리 할 수 있습니다.
-
-
-### webpack을 선호하는지는 몇 가지 이유
-* 비교적 최신이어서 이전의 번들러에서 발생하던 문제점과 단점을 피할 수 있습니다.
-* 쉽게 시작할 수 있습니다. 그냥 평범한 자바스크립트 파일이므로 별도 형식의 환경설정 파일이 필요 없습니다.
-* 플러그인 시스템을 통해서 훨씬 많은 것을 할 수 있으며 강력한 기능들을 사용할 수 있으므로 webpack 하나로 끝낼 수 있습니다.
-
-Browserify 와 webpack 은 각각 장단점이 있는데, Browserify 는 번들링된 파일의 사이즈가 webpack 에 비해 약간 더 효율적이다는 장점이 있고, 
-webpack 은 플러그인 시스템 지원으로 Babel과 연동이 쉽고, 
-코드를 수정하면 즉시 반영되는 “Hot Module Replacement” (HMR)처럼 편리한 기능들이 있어, 빌드 시스템으로써도 손색이 없기에 React의 공식 빌드 시스템으로 채택 되었습니다.
-
 
 
 # webpack으로 웹 개발환경 만들기 (설치 가이드)
@@ -335,26 +323,26 @@ app.js가 app.bundle.js에 코드가 포함되어서 번들링 되었서 실행�
 
 
 ## ES6 module 사용해 보기
+
 ```js
 //------ hello.js ------
 export default function hello() {
-    console.log('Hello webpack!!!!');
-}
-```     
+    console.log('Hello webpack');
+}   
+```
 
-```js
+```
 //------ app.js ------
-import hello from './hello'
+import hello from './hello';
 hello();
 //console.log('Hello webpack');
-```    
+```
 
-브라우저에서 아직 지원이 되지 않는 모듈을 
-웹브라우저에서 이러한 기능을 쓸 수 있도록 하는것이 웹팩이 해줄 수 있는 주요 기능
 
 ## watch 모드
 watch 모드는 프로젝트의 js 소스코드가 변경될 때마다 자동으로 감지해서 다시 bundle.js 파일을 만들어주는 기능.
 개발중에는 주로 watch 모드를 이용.
+
 ```bash
 # 엔트리 파일 변경시 자동 리빌드
 $ webpack ./src/app.js ./dist/app.bundle.js --watch
@@ -368,24 +356,22 @@ $ webpack ./src/app.js ./dist/app.bundle.js -w
 $ webpack ./src/app.js ./dist/app.bundle.js -p
 ```
 
+
 ## webpack의 기본적인 4가지 컨셉
 웹팩을 이해하는데 있어서 기본적인 4가지 컨셉 간단하게 정리하고 넘어가겠습니다.
-네 가지 설정을 기본적인 옵션을 제공
 
 * Entry: 웹팩이 파일을 읽어들이기 시작하는 부분을 설정.
-
 '여기서부터 시작해서, 여기에 추가된 의존성을 따라서 번들링해라'라고 지정해주는 것입니다.
 
 * Output: 결과물이 어떻게 나올지 설정.
-
 번들링이 끝난 후 결과물을 어느 경로에 놓고, 무슨 파일명으로 저장할 지 등을 설정
 
 * Module: 웹팩을 통해 번들링을 진행할 때 처리해야 하는 태스크들을 실행.
-웹팩은 다양한 형식의 확장자들(.css, .html, .scss, .jpg, …등)을 모듈로 취급 함께 빌드 할 수 있도록 도와줍니다.
+웹팩은 다양한 형식의 확장자들(.css, .html, .scss, .jpg.. 등)을 모듈로 취급 함께 빌드 할 수 있도록 도와줍니다.
 babel과 같이 트랜스파일러를 사용해서 ECMA2015(ES6) 문법을 ES5 문법으로 바꿔주는 경우에도 사용할 수 있다. 
 
-
-module 옵션은 webpack을 통해 bundling을 진행할 때 처리해야 하는 task들을 실행할 때 사용합니다. ES5 문법을 사용하기 위해 먼저 babel을 통해 transpile을 해야 하는데 이 작업을 babel-loader를 통해 설정해줄 수 있습니다. 또 javascript 파일 뿐만 아니라 css 파일을 load해야하는 경우에는 css-loader를 사용할 수 있습니다.
+module 옵션은 webpack을 통해 bundling을 진행할 때 처리해야 하는 task들을 실행할 때 사용합니다. ES5 문법을 사용하기 위해 먼저 babel을 통해 transpile을 해야 하는데 이 작업을 babel-loader를 통해 설정해줄 수 있습니다. 
+또 javascript 파일 뿐만 아니라 css 파일을 load해야하는 경우에는 css-loader를 사용할 수 있습니다.
 
 
 * Plugins: 확장기능
@@ -397,8 +383,6 @@ module 옵션은 webpack을 통해 bundling을 진행할 때 처리해야 하는
 
 사용하지 않는 코드들을 처리하고
 예를 들면 압축을 한다거나, 핫리로딩을 한다거나, 파일을 복사하는 등의 부수적인 작업을 할 수 있습니다.
-
-플러그인은 흔히 생각하는 확장기능이라고 생각하면 됩니다. 원하는 기능을 plugins array에 new 구문과 함께 추가하기만 하면 됩니다.
 
 ## webpack 설정 파일
 ```bash
@@ -415,6 +399,7 @@ module.exports = {
     }
 }
 ```
+
 ```js
 //------ package.json ------
 "scripts": {
@@ -701,11 +686,31 @@ $ npm i rimraf --save-dev
 //------ package.json ------
  "scripts": {
 	"dev": "webpack-dev-server",
-    "prod": "npm run clean && NODE_ENV=production webpack -p",
+    "prod": "npm run clean && NODE_ENV=production webpack",
 	"clean": "rimraf ./dist/*"
 }
 ```
 
+
+
+### UglifyJS Plugin
+minify를 통해 소스 용량을 줄여주고, uglify를 통해 난독화 및 console.log를 제거해 주는 기능
+
+
+```js
+//------ webpack.config.js ------
+const webpack = require('webpack');
+
+module.exports = {
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+            warnings: false
+        }
+    }),
+  ]
+}
+```
 
 
 ### How to load images with webpack
@@ -713,8 +718,9 @@ https://github.com/webpack-contrib/file-loader
 css background url(...) 이미지를 가져올수없음 에러남
 CSS, Image 파일을 외부 파일로 추출하기 위한 webpack.config.js 설정
 
-웹팩은 css, image 등을 하나의 모듈로 인지하고 번들링 파일로 추출한다.
+웹팩은 css, image 등을 하나의 모듈로 인지하고 번들링 파일로 추출
 기본적으로 html 파일에서 <img src=image.png /> 를 선언하고 번들링시 해당 이미지 파일을 의존성 트리에 추가하기 위해서는 번들링 파일에서 별도로 require('image.png') 선언할 필요가 있다.
+
 use: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/images/"
 
 ```bash
@@ -748,9 +754,12 @@ module: {
 파일을 처리하는 file-loader와 파일 내용을 모듈에 문자열 형태로 추가하는 url-loader
 
 
-### How to optimize your css stylesheet
-How to use PurifyCSS plugin to minify your CSS file output
+### PurifyCSS Plugin How to optimize your css stylesheet
+
+메인 폴더에있는 html파일을 체크해서 사용되고 있는 필요한 css만 최적화
+
 PurifyCSS Plugin https://github.com/webpack-contrib/purifycss-webpack
+
 ```bash
 npm i -D purifycss-webpack purify-css
 ```
@@ -769,8 +778,6 @@ module.exports = {
   ]
 }
 ```
-메인 폴더에있는 html파일을 체크해서 사용되고 있는 필요한 css만 최적화
-
 
 
 ## webpack dev server
@@ -783,15 +790,6 @@ $ npm i webpack-dev-server --save-dev
 ```js
 //------ webpack.config.js ------
 module.exports = {
-    // ...
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 8080,
-        stats: 'errors-only',
-        open: true
-    }
-
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
@@ -803,11 +801,12 @@ module.exports = {
     },
 }
 ```
+
 ```js
 //------ package.json ------
 "scripts": {
     "dev": "webpack-dev-server",
-    "prod": "webpack -p"
+    "prod": "webpack"
 }
 ```
 
@@ -829,16 +828,16 @@ $ webpack-dev-server
 # 전체 페이지를 로딩 한다.
 $ webpack-dev-server --inline
 
-# 부분 로딩  또는 전체 페이지 로딩
-$ webpack-dev-server --inline --hot
+# 부분 로딩
+$ webpack-dev-server --hot
 ```
 
 ## HMR (Hot Module Replacement) 사용하기
-webpack-dev-server 를 사용함으로써 우리는 hot module replacement 를 React 와 함께 설정할 수 있다. 
-우리가 코드를 수정하거나 추가하고 저장할 때마다 webpack 이 이를 감지하고 컴포넌트의 상태를 잃지않고 페이지를 새로고침할 필요도 없이 코드를 수정하여준다.
+webpack-dev-server 를 사용함으로써 우리는 hot module replacement 설정할 수 있다. 
+우리가 코드를 수정하거나 추가하고 저장할 때마다 webpack 이 이를 감지하고 페이지를 새로고침할 필요도 없이 코드를 수정하여준다.
 
-live-reload 기능이 있긴 하지만, 페이지 전체를 다시 불러오는 형태라서 비효율적으로 볼 수도 있다. 에디터에서 수정 후 저장하자마자 깜빡임도 없이 브라우저에 있는 UI가 바로 바뀌는 모습이 인상적이었다. 
-특히 CSS 수정했을 때 유용해보였다.
+live-reload 기능이 있긴 하지만, 페이지 전체를 다시 불러오는 형태라서 비효율적으로 볼 수도 있다. 에디터에서 수정 후 저장하자마자 깜빡임도 없이 브라우저에 있는 UI가 바로 바뀌는 모습이 인상적.
+CSS 수정했을 때 유용
 
 ```js
 //------ webpack.config.js ------
@@ -849,7 +848,7 @@ module.exports = {
         rules: [
             {
                 test: /\.scss$/,
-                use: ['style-loader', 'css-loader?sourceMap', 'sass-loader']
+                use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
             }
         ],
     },
@@ -882,24 +881,8 @@ IE환경을 지원하면서도 ES2015를 쓰기 위해서는 babel 같은 트랜
 babel-loader를 사용하기 위해서 먼저 babel-loader를 설치한다.
 
 ```bash
-//React 설치
-$ npm i react react-dom --save-dev
-$ npm i babel-preset-react --save-dev
 
-
-
-$ npm i --save-dev babel-cli babel-core babel-loader babel-preset-env babel-preset-react
-
-
-//Babel 설치
 $ npm i --save-dev babel-loader babel-core babel-preset-env
-
-$ npm i --save-dev babel-loader babel-core babel-preset-es2015 babel-preset-react 
-
-$ npm i --save-dev babel-loader babel-core babel-preset-env babel-preset-react babel-preset-stage-0
-
-
-
 
 # .babelrc 파일생성
 $ touch .babelrc
@@ -908,91 +891,26 @@ $ touch .babelrc
 ```js
 //------ .babelrc ------
 {
-    "presets":[
-        "es2015", "react"
-    ]
-}
-
-{
-    "presets": [
-        ["es2015", { "modules": false }]
-    ]
+    "presets": ["env"]
 }
 ```
 
 ```js
 //------ webpack.config.js ------
-
-rules : [
-    {
-        test : /\.jsx?$/,
-        exclude : /node_modules/,
-        use : {
-            loader : 'babel-loader',
-            options : {
-                presets : ['env', 'react']  // ES2015, React를 이용해서 빌드한다.
-            },
-        }
-    }
-],
-
-module: {
-  rules: [
-    {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      //exclude: /(node_modules|bower_components)/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['env', 
-            {
-                'modules': false
-            }
-          ]
-          // presets: ['env', { 'modules': false }, 'react']
-        }
-      }
-    }
-  ]
-}
-
-
-module.exports = {
-    // ...
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {presets: ['es2015']}
-                }]
-            }
-        ]
-    }
-}
-
-
-devtool : 'inline-source-map',
 module: {
     rules: [
         {
             test: /\.js$/,
             exclude: /node_modules/,
             use: {
-            loader: 'babel-loader',
-            options: {
-                presets: ['es2015']
-            }
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env']
+                }
             }
         }
     ]
 }
-
-
-
 ```
 
 
@@ -1043,13 +961,91 @@ import world from './world';
 document.getElementById('demo').innerHTML = `${hello}, ${world}!`;
 ```
 
+
+
+## React 
+```bash
+$ npm i react react-dom --save-dev
+
+$ npm i babel-cli babel-core babel-loader babel-preset-env babel-preset-react --save-dev
+
+
+# .babelrc 파일생성
+$ touch .babelrc
+```
+
+```js
+//------ .babelrc ------
+{
+    "presets": ["env", "react"]
+}
+```
+
+```js
+//------ webpack.config.js ------
+module: {
+    rules: [
+        {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env', 'react']  // ES2015, React를 이용해서 빌드한다.
+                }
+            }
+        }
+    ]
+}
+```
+
+```js
+//------ app.js ------
+const css = require('./app.scss');
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('root')
+);
+
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { App } from './App';
+
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+);
+```
+
+```html
+//----- index.html -----
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><%= htmlwebpackPlugin.options.title %></title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+```
+
+
+
+
 ### Production vs Development Environment
 
 ```js
 //------ package.json ------
 "scripts": {
 	"dev": "webpack-dev-server",
-	"prod": "npm run clean && NODE_ENV=production webpack -p",
+	"prod": "npm run clean && NODE_ENV=production webpack",
 	"clean": "rimraf ./dist/*"
 }
 ```
@@ -1086,51 +1082,6 @@ module.exports = {
 }
 ```
 
-## React 
-```bash
-$ npm i react react-dom --save-dev
-$ npm i babel-preset-react --save-dev
-
-# .babelrc 파일생성
-$ touch .babelrc
-```
-
-```js
-//------ app.js ------
-const css = require('./app.scss');
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-ReactDOM.render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('root')
-);
-
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { App } from './App';
-
-ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-);
-```
-
-```html
-//----- index.html -----
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title><%= htmlwebpackPlugin.options.title %></title>
-</head>
-<body>
-	<div id="root"></div>
-</body>
-</html>
-```
 
 
 

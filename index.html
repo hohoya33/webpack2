@@ -750,7 +750,7 @@
             hot: true
         },
         plugins: [
-            new webpack.HotModuleReplacementPlugin()
+            new webpack.HotModuleReplacementPlugin();
         ]
     }
                         </code></pre>
@@ -758,12 +758,78 @@
 
 
                     <section>
-                        <h2>소스맵 (Source Map)</h2>
-                        <p>원본 소스와 난독화된 소스를 매핑해주는 방법</p>
-                        <p>*.map 파일을 통해 제공되고, json 형태</p>
-                        <p>devtool은 js 파일의 소스맵하고만 관련, (s)css의 소스맵과는 무관</p>
+                        <h2>devtool - 소스맵 (Source Map)</h2>
+                        <p>SourceMap은 압축, 난독화된 자바스크립트, CSS 파일을 원본 소스와 매핑해주는 방법</p>
+                        <p>+ 작업 속도 빠름, - 느림, 0 거의 같은 시간을 의미</p>
+
+                        <table>
+                        <thead>
+                        <tr>
+                        <th>devtool</th>
+                        <th>build</th>
+                        <th>rebuild</th>
+                        <th>production</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                        <td>eval</td>
+                        <td>+++</td>
+                        <td>+++</td>
+                        <td>no</td>
+                        </tr>
+                        <tr>
+                        <td>cheap-eval-source-map</td>
+                        <td>+</td>
+                        <td>++</td>
+                        <td>no</td>
+                        </tr>
+                        <tr>
+                        <td>cheap-source-map</td>
+                        <td>+</td>
+                        <td>0</td>
+                        <td>yes</td>
+                        </tr>
+                        <tr>
+                        <td>cheap-module-eval-source-map</td>
+                        <td>0</td>
+                        <td>++</td>
+                        <td>no</td>
+                        </tr>
+                        <tr>
+                        <td>cheap-module-source-map</td>
+                        <td>0</td>
+                        <td>-</td>
+                        <td>yes</td>
+                        </tr>
+                        <tr>
+                        <td>eval-source-map</td>
+                        <td>- -</td>
+                        <td>+</td>
+                        <td>no</td>
+                        </tr>
+                        <tr>
+                        <td>source-map</td>
+                        <td>- -</td>
+                        <td>- -</td>
+                        <td>yes</td>
+                        </tr>
+                        <tr>
+                        <td>nosources-source-map</td>
+                        <td>- -</td>
+                        <td>- -</td>
+                        <td>yes</td>
+                        </tr>
+                        </tbody>
+                        </table>
+                    </section>
+
+                    <section>
+                        <p>개발용: 빌드 시간, 로그, 디버깅이 중요<br>cheap-module-eval-source-map, inline-source-map, webpack-dev-server 명령어를 사용</p>
+                        <p>배포용: 용량을 우선적으로 선택<br>cheap-module-source-map, webpack 명령어를 사용</p>
 
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
+     devtool: 'cheap-eval-source-map', //js 소스맵하고만 관련, (s)css의 소스맵과는 무관
      module: {
         rules: [
             {
@@ -776,7 +842,6 @@
             }
         ]
     },
-    devtool: 'inline-source-map',
                         </code></pre>
                     </section>
 
