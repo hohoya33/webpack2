@@ -159,64 +159,29 @@ import와 export라는 새로운 구문을 통해서 스크립트간의 관계�
 - [ES6 - Module 브라우저 지원 상황](http://caniuse.com/#feat=es6-module)
 
 
-<img src="img/cover-1.jpg" width="400">
-
-아직 브라우저에서 지원이 되지 않는 모듈(import, export)을 사용하기 위해서는
-Bundler 혹은 Preprocessor(프리프로세서)등을 사용해서 안정적인 자바스크립트로 컴파일 해주어야 합니다.
-
-다른 번들러로는 Browserify, webpack 등이 있다. 
-하지만 요즘에는 webpack으로 대세가 굳어진 느낌이다.
-
 # webpack 소개
 
 ## webpack, 모듈 번들러란?
+<img src="img/cover-1.jpg" width="400">
+
 웹 서비스를 개발할 때 자바스크립트로 작성하는 코드의 양이 많아지면 유지보수가 쉽도록 코드를 모듈로 나누어 관리하는 모듈 시스템이 필요.
+
 아직 브라우저 에서 import나 export가 구현되지 않음. (모듈 번들러가 기능을 대신 지원)
+
 webpack은 이런 한계를 극복하기 위한 도구 중 하나로 자바스크립트 모듈화 도구.
 
 <img src="https://cdn.filepicker.io/api/file/QIuZVivBTFWIu8LN9i3E" alt="">
 그림 1. 모듈 번들러 웹팩
 
-
-웹 페이지는 수 많은 구성요소로 이루어져 있습니다.
-기본적인 html, js, css, 이미지 파일 외에도, 웹폰트, json 데이터 등등 수 많은 파일들을 받아와야 합니다. 
-
-http/2에서는 하나의 커넥션에 동시에 여러 파일들을 요청할 수 있습니다. 
-하지만 아직 보편화되어있지 않기 때문에 현재 주로 사용하는 
-http/1.1에서는 커넥션 하나를 열어 하나씩 요청을 보내야합니다. 
-하나의 요청이 끝나야 다음 요청을 보낼 수 있기 때문에 요청이 많을수록 비효율적
-
-개발자인 저희가 희생해야죠. 
-바로 요청 수를 줄이는 겁니다! 
-그래서 이미지는 스프라이트로 만들어 한 번에 받고, 
-걸프, 그런트같은 번들러로 js파일이나 css파일을 하나로 합치곤 했죠. 
-그러다가 이제 번들러 끝판왕 웹팩이 나왔습니다. 
-아래의 그림처럼 여러 파일들을 하나로 합쳐줍니다.
-
-하나의 파일로 합치기엔 너무 크다면 여러 개의 파일로 나눌 수도 있습니다. 
-보통 라이브러리들은 자주 수정되지 않기 때문에 라이브러리만 모아둔 JS 파일 하나를 만들고, 
-코드 수정이 자주되는 핵심 페이지는 따로 하나 만들어서 두 개의 JS가 생성됩니다. 
-
-주의할 점은 import랑 require을 쓰지 않고 그냥 지금처럼 스크립트 주르륵 불러오는 방식으로 코딩하신 분은 웹팩의 장점을 누릴 수 없습니다.
-그런 분들은 모듈 시스템 부터 공부
-
-
-프론트엔드가 중요해지면서 JS자체만으로도 엄청난 의존 관계.
 webpack은 여러가지 디펜던시(의존성)들을 효율적인 방법으로 통합하여 하나의 번들 파일로 생성.
-이렇게 번들링된 파일을 브라우저(HTML)에서 로드.
+이렇게 번들링된 파일을 HTML에서 로드.
 
-
-### webpack의 주요기능? 
-SASS나 LESS와 같은 CSS 프리프로세서를 사용한 적이 있다면 코드를 일반 CSS로 변환해야 한다는 것은 알고 있을 것입니다.
-
-ES6, TypeScript나 다른 자바 스크립트 언어를 사용 해본 적이 있다면 하위 브라우저를 위해 변환 단계가 있다는 것을 알고 있을 것입니다.
-
-webpack이 정말 좋은 점은 다양한 종류의 코드를 변환 시킬 수 있습니다. 
-
-HTML, CSS, 이미지마저 자바스크립트 내부에서 로드 가능합니다.
-이제까지 index.html에 각 플러그인 마다 필요한 자바스크립트와 
-CSS파일들을 일일이 써넣어주어야 하는 것이 상당히 귀찮은 작업이었지만,
-웹팩을 이용하면 직관적이고 효율적으로 디펜던시(종속성)들을 관리 할 수 있습니다.
+### webpack 주요기능? 
+* CSS 프리프로세서(SASS/LESS), ES6, TypeScript 양한 종류의 코드를 변환
+* HTML, CSS, 이미지마저 JavaScript 파일 내부에서 로드 가능
+* 직관적이고 효율적인 의존성 관리
+* 플러그인을 통해 편리한 기능들을 사용 (Common chunk, Uglify, HMR..)
+* 빌드 시스템으로써도 손색이 없기에 React의 공식 빌드 시스템으로 채택
 
 
 # webpack으로 웹 개발환경 만들기 (설치 가이드)
@@ -273,53 +238,40 @@ path.resolve('/foo/bar', './baz') # /foo/bar/baz
 webpack을 시작하기 위해서 전역 또는 로컬(프로젝트내)에 설치해야합니다.
 
 ```bash
-$ npm install webpack -g
-or
 $ npm install webpack --save-dev
+or
+$ npm install webpack -g
 ```
 
-webpack을 전역으로 설치할 수도 있지만<br>
-이렇게 하면 프로젝트별로 서로 다른 버전을 사용할 수가 없고,
+webpack을 전역으로 설치할 수도 있지만 이렇게 하면 프로젝트별로 서로 다른 버전을 사용할 수가 없고,
 프로젝트 의존성에 포함될 수 없게됩니다.<br>
 webpack CLI 팩키지는 가능한 로컬에 설치해서 상대 경로를 사용하거나 npm 스크립트로 팩키지를 실행하는 것이 좋습니다.
 
-전역에 설치함으로써 webpack 명령어를 사용할 수 있고, 
-로컬에 설치함으로써 어떤 버전의 webpack을 프로젝트가 전역으로 설치하지 않고 사용할 수 있는지 알 수 있습니다.
-
-
 ## 빌드된 코드를 로드할 html 파일
-html5 기본 템플릿 (vscode: !+tab)
 ```html
-<!-- index.html -->
- <html>
+<!DOCTYPE html>
+<html>
     <head>
         <meta charset="utf-8">
+        <title>webpack2</title>
     </head>
     <body>
-        <h1>Hello webpack</h1>
+        <h1>Hello Webpack</h1>
         <script type="text/javascript" src="dist/app.bundle.js"></script>
     </body>
 </html>
 ```
-index.html파일을 보시면
-우리가 아직 만들지 않은 app.bundle.js파일을 로딩하는 코드인것을 알 수있습니다.
+
+## 번들 파일 생성 (app.bundle.js)
+다음과 같이 명령어를 실행하여 번들 파일을 생성 할 수 있습니다.
 ```js
 //------ app.js ------
 console.log('Hello webpack');
 ```     
-
-
-## 번들 파일 생성 (app.bundle.js)
-webpack 을 설치한 뒤, 다음과 같이 명령어를 실행하여 모듈을 컴파일할 수 있다.
 ```bash
 # webpack {엔트리 파일 경로} {번들 파일 경로}
 $ webpack ./src/app.js ./dist/app.bundle.js
 ```
-
-아직 만들지 않은 dist폴더에 app.bundle.js 파일을 만들어야 합니다.
-app.js가 app.bundle.js에 코드가 포함되어서 번들링 되었서 실행된 결과가 화면에 나왔습니다.
-
-여기까지는 아직 웹팩의 효과가 전혀 나타나지 않았습니다. 오히려 파일에 용량만 커졌기때문에 좀 더 기능을 추가해봅니다.
 
 
 ## ES6 module 사용해 보기
@@ -340,8 +292,7 @@ hello();
 
 
 ## watch 모드
-watch 모드는 프로젝트의 js 소스코드가 변경될 때마다 자동으로 감지해서 다시 bundle.js 파일을 만들어주는 기능.
-개발중에는 주로 watch 모드를 이용.
+소스코드가 변경될 때마다 자동으로 감지해서 다시 번드링 해주는 기능.<br>개발중에는 주로 watch 모드를 이용.
 
 ```bash
 # 엔트리 파일 변경시 자동 리빌드
@@ -357,32 +308,17 @@ $ webpack ./src/app.js ./dist/app.bundle.js -p
 ```
 
 
-## webpack의 기본적인 4가지 컨셉
-웹팩을 이해하는데 있어서 기본적인 4가지 컨셉 간단하게 정리하고 넘어가겠습니다.
+## webpack의 기본적인 개념
 
 * Entry: 웹팩이 파일을 읽어들이기 시작하는 부분을 설정.
-'여기서부터 시작해서, 여기에 추가된 의존성을 따라서 번들링해라'라고 지정해주는 것입니다.
-
 * Output: 결과물이 어떻게 나올지 설정.
-번들링이 끝난 후 결과물을 어느 경로에 놓고, 무슨 파일명으로 저장할 지 등을 설정
-
 * Module: 웹팩을 통해 번들링을 진행할 때 처리해야 하는 태스크들을 실행.
-웹팩은 다양한 형식의 확장자들(.css, .html, .scss, .jpg.. 등)을 모듈로 취급 함께 빌드 할 수 있도록 도와줍니다.
-babel과 같이 트랜스파일러를 사용해서 ECMA2015(ES6) 문법을 ES5 문법으로 바꿔주는 경우에도 사용할 수 있다. 
-
-module 옵션은 webpack을 통해 bundling을 진행할 때 처리해야 하는 task들을 실행할 때 사용합니다. ES5 문법을 사용하기 위해 먼저 babel을 통해 transpile을 해야 하는데 이 작업을 babel-loader를 통해 설정해줄 수 있습니다. 
-또 javascript 파일 뿐만 아니라 css 파일을 load해야하는 경우에는 css-loader를 사용할 수 있습니다.
-
-
-* Plugins: 확장기능
-
-다양한 플러그인을 통해 효과적으로 번들링을 할 수 있습니다. 
+웹팩은 다양한 형식의 확장자들(.css, .html, .scss, .jpg.. 등)을 모듈로 취급 함께 빌드 할 수 있도록 도와줍니다. babel과 같이 트랜스파일러를 사용해서 ECMA2015(ES6) 문법을 ES5 문법으로 바꿔주는 경우에도 사용할 수 있다. 
+* Plugins: 확장기능.
+다양한 플러그인을 통해 효과적으로 번들링할 수 있습니다. 
 코드를 난독화(Uglify)하여 압축할 수 있고, 
 공통된 코드(Common chunk)를 분리할 수 있고, 
 코드를 저장 할때마다 자동으로 리로딩(HotModuleReplacement)할 수 있습니다. 
-
-사용하지 않는 코드들을 처리하고
-예를 들면 압축을 한다거나, 핫리로딩을 한다거나, 파일을 복사하는 등의 부수적인 작업을 할 수 있습니다.
 
 ## webpack 설정 파일
 ```bash
@@ -414,11 +350,12 @@ $ npm run prod # 프로덕션 모드
 ```
 
 ### Multiple files, bundled together
+app.bundle.js 배열 순서대로 하나의 파일로 생성 됩니다.
 ```js
 const path = require('path');
 
 module.exports = {
-  context: path.resolve(__dirname, './src'), //모듈 파일 폴더
+  context: path.resolve(__dirname, './src'),
   entry: {
     app: ['./home.js', './events.js', './vendor.js'],
   },
@@ -428,15 +365,14 @@ module.exports = {
   },
 };
 ```
-dist/app.bundle.js 배열 순서대로 하나의 파일 로 함께 묶입니다.
 
 ### Multiple files, multiple outputs
-또는 여러 개의 JS 파일을 번들로 묶어 앱의 일부분을 분리 할 수도 있습니다. 
+여러 개의 JS 파일을 번들로 묶어 분리할 수 있습니다. 
 ```js
 const path = require('path');
 
 module.exports = {
-  context: path.resolve(__dirname, './src'), //모듈 파일 폴더
+  context: path.resolve(__dirname, './src'),
   entry: {
     home: './home.js',
     events: './events.js',
@@ -448,21 +384,18 @@ module.exports = {
   },
 };
 ```
-3개 번들 파일로 제공됩니다. 
-dist/home.bundle.js, 
-dist/events.bundle.js,
-dist/contact.bundle.js.
+home.bundle.js, 
+events.bundle.js,
+contact.bundle.js
+3개 번들파일로 제공 
 
 ## HTML webpack Plugin
-html-webpack-plugin 이용해서 index.html 자동으로 만들기
-[html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin)
+[html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin) 이용해서 index.html 자동으로 만들기
 
-.js를 배포하다보면 캐쉬 문제로 v= 을 붙여 주어야 할 때가 많다.
-html-webpack-plugin을 이용하면 .html에 들어갈 내용을 내가 외부에서 동적으로 바꿔서 생성을 할 수 있다.
-minify 옵션으로 min 파일을 만들 수 있고, ejs템플릿을 사용할 수도 있다.
-
-[ejs템플릿](https://github.com/mde/ejs)
-
+* 번들링된 JS, CSS 파일들을 html에 자동으로 추가
+* hash : JS, CSS파일에 해시값 추가, 파일 캐시 방지
+* minify : html코드 압축
+* template : [ejs템플릿](https://github.com/mde/ejs), 커스터마이징 가능
 
 ```bash
 $ npm i html-webpack-plugin --save-dev
@@ -503,63 +436,12 @@ module.exports = {
 ```
 
 
-rules(loaders) : 값으로 배열을 받으며, 어떤 파일에 어떤 로더를 적용할지 등을 설정
-test : 정규표현식 값이 오게 되며, 적용할 파일의 패턴을 넣으면 된다.
-exclude : exclude 값으로 적힌 정규식에 해당되는 파일들은 로더의 영향을 받지 않는다.
-
 ## Style, CSS and Sass loaders
-css-loader는 css 파일들을 읽어주고 style-loader는 읽은 css 파일들을 style 태그로 만들어 head 태그 안에 넣어줍니다. 만약 style 태그 대신 css파일로 만들고 싶은 경우에 extract-text-webpack-plugin을 사용하면 됩니다.
-
-- css-loader: css파일을 자바스크립트에 포함
-- style-loader: html에 브라우저에서 스타일 적용 style태그로 head부분에 넣어준다.
+* css-loader: css파일을 자바스크립트에 포함
+* style-loader: html에 브라우저에서 스타일 적용, head부분에 style태그 생성
 
 ```bash
-# css-loader, style-loader
 $ npm i css-loader style-loader --save-dev
-
-# Sass-loader
-$ npm i sass-loader node-sass --save-dev
-
-# Scss 순수 css 변환
-$ npm i extract-text-webpack-plugin --save-dev
-```
-```js
-//------ webpack.config.js ------
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var path = require('path');
-
-module.exports = {
-    // ...
-    module: {
-        rules: [
-            {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader','sass-loader'],
-                    publicPath: '/dist'
-                })
-            }
-        ]
-    },
-    plugins: [
-        new ExtractTextPlugin({
-            filename: 'app.css',
-            disable: false,
-            allChunks: true
-        })
-    ]
-}
-```
-
-
-## Style, CSS and Sass loaders
-
-```bash
-npm i css-loader --save-dev (css파일을 자바스크립트에 포함)
-npm i style-loader --save-dev (html에 브라우저에서 스타일 적용 style태그로 head부분에 넣어준다.)
-
-npm install --save-dev css-loader style-loader (한번에)
 ```
 
 **webpack.config.js**
@@ -572,6 +454,10 @@ module: {
 }
 ```
 
+* rules(loaders): 값으로 배열을 받으며, 어떤 파일에 어떤 로더를 적용할지 등을 설정
+* test: 정규식조건(css, js)에 부합하는 파일들을 지정한 로더로 컴파일
+* exclude: exclude 값으로 적힌 정규식에 해당되는 파일들은 로더의 영향을 받지 않습니다.
+
 **sass-loader 설치**
 ```bash
 npm i sass-loader node-sass --save-dev
@@ -581,37 +467,19 @@ npm i sass-loader node-sass --save-dev
 ```js
 module: {
     rules: [{
-        test: /\.(css|scss)$/,
-        use: [ 'style-loader', 'css-loader', 'sass-loader' ]
-    }]
-},
-
-
-module: {
-    rules: [{
         test: /\.scss$/,
+        //test: /\.(css|scss)$/,
         use: [ 'style-loader', 'css-loader', 'sass-loader' ]
-    }]
-}
-
-module: {
-    rules: [{
-        test: /\.scss$/,
-        use: [{
-            loader: "style-loader"
-        }, {
-            loader: "css-loader"
-        }, {
-            loader: "sass-loader",
-            options: {
-                includePaths: ["absolute/path/a", "absolute/path/b"]
-            }
-        }]
     }]
 }
 ```
 
-## scss 변환 순수 css로
+css?sourceMap,-minimize,sass?sourceMap,outputStyle=expanded
+
+(s)css 파일을 압축시키지 않으면서 소스맵 사용
+
+## Extract Text Plugin
+SCSS 컴파일, 순수 CSS 파일 생성. style 태그 대신 css파일로 만들고 싶은 경우 사용
 ```bash
 npm i extract-text-webpack-plugin --save-dev
 ```
@@ -624,7 +492,7 @@ module: {
 	rules: [{
 	    test: /\.scss$/,
 	    use: ExtractTextPlugin.extract({
-	    	fallback: "style-loader",
+	    	fallback: 'style-loader',
 	     	use: ['css-loader', 'sass-loader'],
 	     	publicPath: '/dist'
 	    })
@@ -637,338 +505,22 @@ plugins: [
 		allChunks: true
 	})
 ]
-
-
-const extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
-});
-
-module.exports = {
-    ...
-    module: {
-        rules: [{
-            test: /\.scss$/,
-            use: extractSass.extract({
-                use: [{
-                    loader: "css-loader"
-                }, {
-                    loader: "sass-loader"
-                }],
-                // use style-loader in development
-                fallback: "style-loader"
-            })
-        }]
-    },
-    plugins: [
-        extractSass
-    ]
-};
 ```
 
 ```js
 //------ app.js ------
-const css = require('./app.scss');
+const css = require('./app.css');
+or
+import css from './app.css'; //ES6
 ```
-
-
-### RimRaf
-* dist 폴더 파일 삭제
-rimraf 명령어를 통해 삭제 가능합니다. 
-먼저 rimraf 모듈을 설치합니다.
-rimraf 명령을 통해 원하는 폴더 경로를 입력해서 삭제합니다.
-
-```bash
-$ npm i rimraf --save-dev
-```
-
-```js
-//------ package.json ------
- "scripts": {
-	"dev": "webpack-dev-server",
-    "prod": "npm run clean && NODE_ENV=production webpack",
-	"clean": "rimraf ./dist/*"
-}
-```
-
-
-
-### UglifyJS Plugin
-minify를 통해 소스 용량을 줄여주고, uglify를 통해 난독화 및 console.log를 제거해 주는 기능
-
-
-```js
-//------ webpack.config.js ------
-const webpack = require('webpack');
-
-module.exports = {
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-        compressor: {
-            warnings: false
-        }
-    }),
-  ]
-}
-```
-
-
-### How to load images with webpack
-https://github.com/webpack-contrib/file-loader
-css background url(...) 이미지를 가져올수없음 에러남
-CSS, Image 파일을 외부 파일로 추출하기 위한 webpack.config.js 설정
-
-웹팩은 css, image 등을 하나의 모듈로 인지하고 번들링 파일로 추출
-기본적으로 html 파일에서 <img src=image.png /> 를 선언하고 번들링시 해당 이미지 파일을 의존성 트리에 추가하기 위해서는 번들링 파일에서 별도로 require('image.png') 선언할 필요가 있다.
-
-use: "file-loader?name=[name].[ext]&publicPath=assets/foo/&outputPath=app/images/"
-
-```bash
-$ npm i file-loader --save-dev
-$ npm i image-webpack-loader --save-dev
-```
-
-```js
-//------ webpack.config.js ------
-module: {
-    rules: [
-        { 
-            test: /\.(jpe?g|png|gif|svg)$/i, 
-            use: [
-                    'file-loader?name=images/[name].[ext]',
-                    'image-webpack-loader' 
-            ]
-        }
-    ],
-}
-
-
-{ 
-    test: /\.(jpe?g|png|gif|svg)$/i, 
-    use: ['file-loader?name=img/[name].[ext]&publicPath=assets/foo/&outputPath=app/images/']
-}
-```
-
-### file-loader와 url-loader
-웹팩에서 이미지나 폰트같은 파일을 다루는데 file-loader와 url-loader를 많이 사용하는 것 같다.
-파일을 처리하는 file-loader와 파일 내용을 모듈에 문자열 형태로 추가하는 url-loader
-
-
-### PurifyCSS Plugin How to optimize your css stylesheet
-
-메인 폴더에있는 html파일을 체크해서 사용되고 있는 필요한 css만 최적화
-
-PurifyCSS Plugin https://github.com/webpack-contrib/purifycss-webpack
-
-```bash
-npm i -D purifycss-webpack purify-css
-```
-```js
-//------ webpack.config.js ------
-const path = require('path');
-const glob = require('glob');
-const PurifyCSSPlugin = require('purifycss-webpack');
-
-module.exports = {
-  plugins: [
-    new PurifyCSSPlugin({
-      // Give paths to parse for rules. These should be absolute!
-      paths: glob.sync(path.join(__dirname, 'main/*.html')),
-    })
-  ]
-}
-```
-
-
-## webpack dev server
-https://webpack.js.org/configuration/dev-server/#components/sidebar/sidebar.jsx
-
-```bash
-$ npm i webpack-dev-server --save-dev
-```
-
-```js
-//------ webpack.config.js ------
-module.exports = {
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 8080,
-        stats: 'errors-only',
-        hot: true,
-        open: true,
-        historyApiFallback: true
-    },
-}
-```
-
-```js
-//------ package.json ------
-"scripts": {
-    "dev": "webpack-dev-server",
-    "prod": "webpack"
-}
-```
-
-```bash
-$ npm run dev
-```
-
-'hot' VS 'inline' webpack-dev-server options
-
-inline 은 전체 페이지에 대한 실시간 리로딩(Live Reloading) 옵션이며, 
-hot 은 컴포넌트가 수정 될 경우 그 수정된 부분만 리로드 해주는 부분 모듈 리로딩(Hot Module Reloading) 옵션이다. 
-만약 두개 옵션을 모두 지정할 경우 Hot Module Reloading이 처음 발생한다. 
-그리고 Hot Module Reloading이 안되면 전체 페이지 로딩을 한다.
-
-```bash
-# 페이지를 로딩하지 않는다.
-$ webpack-dev-server
-
-# 전체 페이지를 로딩 한다.
-$ webpack-dev-server --inline
-
-# 부분 로딩
-$ webpack-dev-server --hot
-```
-
-## HMR (Hot Module Replacement) 사용하기
-webpack-dev-server 를 사용함으로써 우리는 hot module replacement 설정할 수 있다. 
-우리가 코드를 수정하거나 추가하고 저장할 때마다 webpack 이 이를 감지하고 페이지를 새로고침할 필요도 없이 코드를 수정하여준다.
-
-live-reload 기능이 있긴 하지만, 페이지 전체를 다시 불러오는 형태라서 비효율적으로 볼 수도 있다. 에디터에서 수정 후 저장하자마자 깜빡임도 없이 브라우저에 있는 UI가 바로 바뀌는 모습이 인상적.
-CSS 수정했을 때 유용
-
-```js
-//------ webpack.config.js ------
-const webpack = require('webpack');
-
-module.exports = {
-    module: {
-        rules: [
-            {
-                test: /\.scss$/,
-                use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
-            }
-        ],
-    },
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 8080,
-        stats: "errors-only",
-        hot: true,
-        open: true
-    },
-    plugins: [
-        new ExtractTextPlugin({
-            filename: 'app.css',
-            disable: true,
-            allChunks: true
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin()
-    ]
-}
-```
-
 
 
 ### Setting up React and Babel
+IE환경에서도 ES2015(ES6)를 사용하기 위해 babel 같은 트랜스파일러가 필요.
 
-IE환경을 지원하면서도 ES2015를 쓰기 위해서는 babel 같은 트랜스파일러(Transpiler)가 필수다. webpack에서는 이를 위해 babel-loader에 통과시켜서 ES5 이하의 JavaScript로 만든다.
-
-babel-loader를 사용하기 위해서 먼저 babel-loader를 설치한다.
-
-```bash
-
-$ npm i --save-dev babel-loader babel-core babel-preset-env
-
-# .babelrc 파일생성
-$ touch .babelrc
-```
-
-```js
-//------ .babelrc ------
-{
-    "presets": ["env"]
-}
-```
-
-```js
-//------ webpack.config.js ------
-module: {
-    rules: [
-        {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['env']
-                }
-            }
-        }
-    ]
-}
-```
-
-
-설명을 하고 넘어가야 할 것 같다. 먼저, babel을 사용하기 위해서는 preset을 설치해야 한다. 그 중 babel-preset-env는 설정된 환경에 알맞게 preset을 자동으로 설정해준다. 이 라이브러리를 사용하기 위해서 presets 라는 속성을 사용해서 환경을 설정할 수 있다. 위의 파일에서 설정된 환경은 브라우저 별로 최신의 두 개 버전만을 고려하는 환경이다. 지원하는 브라우저의 리스트는 
-이 곳에서 확인할 수 있다.
-http://browserl.ist/?q=last+2+versions
-
-이제부터 프로젝트에 포함된 모든 .js 확장자 파일은 babel-loader를 거치면서 ES5로 트랜스파일된다. 코드를 ES2015로 변경하여 테스트 해보자.
-
-```js
-// Cat.js
-export default class {
-    constructor(name){  // 생성자
-        this.name = name;
-    }
-
-    // 함수
-    getName(){
-        return `Name is ${this.name}`;  // ECMA2015 templates
-    }
-
-    bawl(){
-        return "야옹~~~~~~";
-    }
-}
-
-```
-```js
-//------ app.js ------
-import Cat from './Cat'
-
-let myCat = new Cat("Momo");
-console.log(myCat.getName()); // Name is Momo
-console.log(myCat.bawl());   // "야옹~~~~~~"
-
-
-
-
-// hello.js
-export default 'Hello';
-// world.js
-export default 'world';
-
-// entry.js
-import hello from './hello';
-import world from './world';
-
-document.getElementById('demo').innerHTML = `${hello}, ${world}!`;
-```
-
-
-
-## React 
 ```bash
 $ npm i react react-dom --save-dev
-
 $ npm i babel-cli babel-core babel-loader babel-preset-env babel-preset-react --save-dev
-
 
 # .babelrc 파일생성
 $ touch .babelrc
@@ -991,7 +543,7 @@ module: {
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: ['env', 'react']  // ES2015, React를 이용해서 빌드한다.
+                    presets: ['env', 'react']  // ES2015, React를 이용해서 빌드
                 }
             }
         }
@@ -1001,8 +553,7 @@ module: {
 
 ```js
 //------ app.js ------
-const css = require('./app.scss');
-
+import css from './app.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -1010,58 +561,125 @@ ReactDOM.render(
   <h1>Hello, world!</h1>,
   document.getElementById('root')
 );
-
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { App } from './App';
-
-ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-);
-```
-
-```html
-//----- index.html -----
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title><%= htmlwebpackPlugin.options.title %></title>
-</head>
-<body>
-    <div id="root"></div>
-</body>
-</html>
 ```
 
 
+## webpack 개발 서버
+로컬 개발을 위한 [webpack dev server](https://webpack.js.org/configuration/dev-server/#components/sidebar/sidebar.jsx)  를 옵션으로 제공
 
+```bash
+$ npm i webpack-dev-server --save-dev
+```
 
-### Production vs Development Environment
+```js
+//------ webpack.config.js ------
+module.exports = {
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 8080,
+        stats: 'errors-only',
+        open: true,
+        historyApiFallback: true
+    },
+}
+```
+
+```js
+//------ package.json ------
+"scripts": {
+    "dev": "webpack-dev-server",
+    "prod": "webpack -p"
+}
+```
+
+```bash
+$ npm run dev
+```
+
+## HMR (Hot Module Replacement) 사용하기
+webpack-dev-server 를 사용함으로써 우리는 hot module replacement 설정할 수 있습니다. 
+
+HMR은 코드를 수정하거나 저장할 때마다 브라우저에서 새로고침 없이 변경 사항이 즉시 반영(CSS 수정 시 유용), 업데이트 실패 시 새로고침을 수행
+
+* inline: 전체 페이지에 대한 실시간 리로딩(Live Reloading) 옵션
+* hot: 컴포넌트가 수정 될 경우 그 수정된 부분만 리로드 해주는 부분 모듈 리로딩(Hot Module Reloading) 옵션
+
+```bash
+# 전체 페이지를 로딩 
+$ webpack-dev-server --inline
+# 부분 로딩
+$ webpack-dev-server --hot
+```
+
+```js
+//------ webpack.config.js ------
+const webpack = require('webpack');
+
+module.exports = {
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 8080,
+        stats: "errors-only",
+        hot: true,
+        open: true
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ]
+}
+```
+
+### devtool - 소스맵 (Source Map)
+소스맵은 번들 파일 내의 코드를 원래 소스 파일로 연결함으로써 브라우저 개발자도구에서 쉽게 디버깅할 수 있습니다.
+
+* 개발용: 빌드 시간, 로그, 디버깅이 중요.<br>
+cheap-module-eval-source-map, inline-source-map, webpack-dev-server 명령어를 사용
+* 배포용: 용량을 우선적으로 선택.<br>
+'cheap-module-source-map' - webpack 명령어를 사용<br>
+'source-map' - webpack -p 명령어(코드압축)
+```js
+//------ webpack.config.js ------
+module.exports = {
+    devtool: 'source-map', //js 소스맵하고만 관련, (s)css의 소스맵과는 무관
+     module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader?sourceMap', 'sass-loader?sourceMap'], //css 소스맵
+                    publicPath: '/dist'
+                })
+            }
+        ]
+    },
+}
+```
+
+### 개발 및 배포 빌드 구분
 
 ```js
 //------ package.json ------
 "scripts": {
 	"dev": "webpack-dev-server",
-	"prod": "npm run clean && NODE_ENV=production webpack",
-	"clean": "rimraf ./dist/*"
+	"prod": "NODE_ENV=production webpack -p"
+    //window환경
+    //"prod": "set NODE_ENV=production&& webpack -p"
 }
 ```
 
 ```js
 //------ webpack.config.js ------
-var isProd = process.env.NODE_ENV === 'production'; //true or false
-
-var cssDev = ['style-loader', 'css-loader?sourceMap', 'sass-loader'];
-var cssProd = ExtractTextPlugin.extract({
+const isProd = process.env.NODE_ENV === 'production'; //true or false
+const cssDev = ['style-loader', 'css-loader', 'sass-loader'];
+const cssProd = ExtractTextPlugin.extract({
     fallback: 'style-loader',
-    use: ['css-loader','sass-loader'],
+    use: ['css-loader?sourceMap','sass-loader?sourceMap'],
     publicPath: '/dist'
 });
-
-var cssConfig = isProd ? cssProd : cssDev;
+const cssConfig = isProd ? cssProd : cssDev;
 
 module.exports = {
     module: {
@@ -1072,6 +690,7 @@ module.exports = {
             }
         ],
     },
+    devtool: isProd ? 'source-map' : 'cheap-module-eval-source-map',
     plugins: [
         new ExtractTextPlugin({
             filename: 'app.css',
@@ -1082,40 +701,101 @@ module.exports = {
 }
 ```
 
+### RimRaf
+rimraf 명령을 통해 dist 폴더 경로를 입력해 삭제합니다.
 
-
-
-
-
-
-
-
-webpack이 잘 되는지 확인하려면 우선.. 
-js 코드에서도 ES6 및 import 를 사용하는 예제를 만들어봐야겠죠?
-
-```js
-//------ sample.js ------
-    class Sample {
-        constructor(name) {
-            this.name = name;
-        }
-
-        say() {
-            console.log("HI, I AM ", this.name);
-        }
-    }
-
-    export default Sample;
-
-//------ app.js ------
-    import Sample from './sample';
-
-    let sample = new Sample('velopert');
-    sample.say();
+```bash
+$ npm i rimraf --save-dev
 ```
 
-ES6와 웹팩의 조합을 이용한 뒤로, 어느순간 웹 프론트엔드 개발이 오로지 자바스크립트 개발인 것처럼 되어버렷다. 
-예전에는 프론트엔드라하면 자바스크립트의 사용을 최소화하고 HTML과 CSS의 극대화한 것과 같이 느껴졌지만, 
-이제는 자바스크립트 애플리케이션 개발중에 시각적인 효과(UI)를 위해 덤으로 HTML과 CSS를 얹혀놓는 느낌이 되어버렸다. 
-또한 내가 만들어놓은 모듈들은 ES6의 클래스로 저장을 시켜놓아서 Angular.js이건, React이건 어느 프레임워크에서도 동작이 되는 서비스모듈로 만들수 있게되었다.
-재사용성을 넘어서 범용성의 극대화가 되었다.
+```js
+//------ package.json ------
+ "scripts": {
+	"dev": "webpack-dev-server",
+	"prod": "npm run clean && NODE_ENV=production webpack",
+	"clean": "rimraf ./dist/*"
+}
+```
+
+
+### File loader와 URL loader (기타 파일 번들링)
+웹팩은 css, image, font 등을 하나의 모듈로 인지하고 번들링 파일로 추출.
+css background url(...) 이미지를 가져 올 수 없음.
+
+* file-loader: jpg, png, gif, svg..등 파일을 처리
+* url-loader: 작은 이미지나 글꼴 파일은 복사하지 않고 문자열 형태로 변환 ([Data URI Scheme](https://en.wikipedia.org/wiki/Data_URI_scheme))
+
+
+```bash
+$ npm i file-loader --save-dev
+$ npm i url-loader --save-dev
+
+# 이미지 최적화
+$ npm i image-webpack-loader --save-dev
+```
+
+```js
+//------ webpack.config.js ------
+module: {
+    rules: [
+        { 
+            test: /\.(jpe?g|png|gif|svg)$/i, 
+            use: [
+                    'file-loader?name=images/[name].[ext]',
+                    'image-webpack-loader' 
+            ]
+            //use: ['file-loader?name=img/[name].[ext]&publicPath=assets/foo/&outputPath=app/images/']
+        },
+        {
+            test: /\.(woff2?|svg)$/,
+            use: [
+                'url-loader?limit=10000' //10Kb 미만인 font, svg 파일을 url-loader로 처리하도록 변경
+            ]
+        }
+    ],
+}
+```
+
+리액트 이미지  불러오는 방법
+<img src={require('이미지경로')} />
+
+
+### UglifyJS Plugin
+minify를 통해 소스 용량을 줄여주고, uglify를 통해 난독화 및 console.log를 제거해 주는 기능
+
+```js
+//------ webpack.config.js ------
+const webpack = require('webpack');
+
+module.exports = {
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+            warnings: false
+        }
+    }),
+  ]
+}
+```
+
+### PurifyCSS Plugin
+메인 폴더에있는 html파일을 체크해서 사용되고 있는 필요한 css 최적화
+
+```bash
+npm i purifycss-webpack purify-css --save-dev
+```
+```js
+//------ webpack.config.js ------
+const path = require('path');
+const glob = require('glob');
+const PurifyCSSPlugin = require('purifycss-webpack');
+
+module.exports = {
+  plugins: [
+    new PurifyCSSPlugin({
+      // Give paths to parse for rules. These should be absolute!
+      paths: glob.sync(path.join(__dirname, 'main/*.html')),
+    })
+  ]
+}
+```

@@ -260,9 +260,9 @@
 
 
                     <section>
-                        <h2>webpack 장점</h2>
+                        <h2>webpack 주요기능</h2>
                         <ul>
-                            <li>CSS 전처리기(SASS/LESS), ES6, TypeScript 컴파일 가능</li>
+                            <li>CSS 프리프로세서(SASS/LESS), ES6, TypeScript 컴파일 가능</li>
                             <li>HTML, CSS, 이미지마저 JavaScript 파일 내부에서 로드 가능</li>
                             <li>직관적이고 효율적인 의존성 관리</li>
                             <li>플러그인을 통해 편리한 기능들을 사용 (Common chunk, Uglify, HMR..)</li>
@@ -534,9 +534,9 @@
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Project Demo',
-            // minify: {
-            //     collapseWhitespace: true
-            // },
+            minify: {
+                collapseWhitespace: true
+            },
             hash: true,
             template: './src/index.html'
         })
@@ -655,9 +655,9 @@
 
 
                     <section>
-                        <h2>Babel</h2>
-                        <p>IE환경을 지원하면서도 ES2015를 쓰기 위해서는 babel 같은 트랜스파일러(Transpiler) 필요</p>
-                        <p>babel-loader에 통과시켜서 ES5 이하의 JavaScript로 변환</p>
+                        <h2>Babel 트랜스파일러(Transpiler)</h2>
+                        <p>IE환경에서도 ES2015(ES6)를 사용하기 위해 babel 같은 트랜스파일러가 필요<br>
+                        babel-loader를 통해 ES5 이하의 JavaScript로 변환</p>
 
                         <pre><code class="bash">
     $ npm i babel-loader babel-core babel-preset-es2015 --save-dev
@@ -728,11 +728,10 @@
 
                     <section>
                         <h2>HMR (Hot Module Replacement)</h2>
-                        <p>코드를 수정하거나 저장할 때마다 이를 감지하고 새로고침 없이 코드를 업데이트</p>
-                        <p>업데이트 실패 시 새로고침을 수행</p>
+                        <p>코드를 수정하거나 저장할 때마다 브라우저에서 새로고침 없이 변경 사항이 즉시 반영<br>업데이트 실패 시 새로고침을 수행</p>
 
                         <pre><code class="bash">
-    # 전체 페이지를 로딩 한다.(Live Reload)
+    # 전체 페이지를 로딩 (Live Reload)
     $ webpack-dev-server --inline
 
     # 부분 로딩
@@ -759,8 +758,8 @@
 
                     <section>
                         <h2>devtool - 소스맵 (Source Map)</h2>
-                        <p>SourceMap은 압축, 난독화된 자바스크립트, CSS 파일을 원본 소스와 매핑해주는 방법</p>
-                        <p>+ 작업 속도 빠름, - 느림, 0 거의 같은 시간을 의미</p>
+                        <p>SourceMap은 압축, 난독화된 자바스크립트, CSS 파일을 원본 소스와 매핑해주는 방법<br>
+                        + 작업 속도 빠름, - 느림, 0 거의 같은 시간을 의미</p>
 
                         <table>
                         <thead>
@@ -824,12 +823,49 @@
                         </table>
                     </section>
 
+
                     <section>
-                        <p>개발용: 빌드 시간, 로그, 디버깅이 중요<br>cheap-module-eval-source-map, inline-source-map, webpack-dev-server 명령어를 사용</p>
-                        <p>배포용: 용량을 우선적으로 선택<br>cheap-module-source-map, webpack 명령어를 사용</p>
+                        <table>
+                        <colgroup>
+                            <col style="width:35%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                        <th>devtool</th>
+                        <th>description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                        <td>source-map</td>
+                        <td>모든 기능이 포함된 완전한 소스맵을 별도의 파일로 생성.<br>최고 품질의 소스맵을 생성하지만 빌드 프로세스가 느려진다.</td>
+                        </tr>
+                        <tr>
+                        <td>cheap-module-source-map</td>
+                        <td>별도의 파일에 컬럼 매핑을 제외한 소스 맵을 생성.<br>컬럼 매핑을 생략하면 빌드 속도는 향상되지만 디버깅할 때는 약간의 불편함이 있다.<br>브라우저 개발자 툴은 원래 소스 파일의 행만 가리킬 수 있으며, 특정 컬럼을 가리킬 수 없다.</td>
+                        </tr>
+                        <tr>
+                        <td>eval-source-map</td>
+                        <td>"eval"을 사용해 동일한 파일 안에 전체 소스맵과 소스코드 모듈을 중첩해 번들로 만든다.<br>빌드 시간에 대한 부담 없이 모든 기능이 포함된 소스맵을 생성할 수 있지만 자바스크립트를 실행할 때 성능과 보안이 저하되는 단점. 즉, 개발 중에는 유용하지만 실무 버전을 빌드할 때는 사용하지 말아야 한다.</td>
+                        </tr>
+                        <tr>
+                        <td>cheap-module-eval-source-map</td>
+                        <td>빌드 중에 소스 맵을 생성하는 가장 빠른 방법.<br>생성되는 소스맵에는 번들 자바스크립트 파일이 칼럼 매핑을 제외하고 동일하게 인라인으로 포함.<br>자바스크립트 실행 시간에 부정적인 영향을 미치므로 실무용 번들을 생성할 때는 적합하지 않다.</td>
+                        </tr>
+
+
+                        </tbody>
+                        </table>
+                    </section>
+
+
+                    <section>
+                        <p>개발용: 빌드 시간, 로그, 디버깅이 중요<br>inline-source-map, cheap-module-eval-source-map, webpack-dev-server 명령어를 사용</p>
+                        <p>배포용: 용량을 우선적으로 선택<br>cheap-module-source-map, webpack 명령어를 사용<br>source-map, webpack -p 명령어(코드압축)</p>
 
                         <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
-     devtool: 'cheap-eval-source-map', //js 소스맵하고만 관련, (s)css의 소스맵과는 무관
+     devtool: 'inline-source-map', //js 소스맵하고만 관련, (s)css의 소스맵과는 무관
      module: {
         rules: [
             {
@@ -846,6 +882,24 @@
                     </section>
 
 
+                    <section>
+                        <h2>개발 및 배포 빌드 구분</h2>
+
+                        <pre><em class="file_name"><i class="devicons devicons-npm"></i>&nbsp;package.json</em><code class="javascript">
+     "scripts": {
+        "dev": "webpack-dev-server",
+        "prod": "NODE_ENV=production webpack -p"
+    }
+                        </code></pre>
+
+                        <pre><em class="file_name"><i class="devicons devicons-javascript"></i>&nbsp;webpack.config.js</em><code class="javascript">
+     const isProd = process.env.NODE_ENV === 'production'; //true or false
+
+     devtool: isProd ? 'source-map' : 'inline-source-map',
+                        </code></pre>
+
+                    </section>
+
 
                     <section>
                         <h2>RimRaf</h2>
@@ -858,7 +912,7 @@
                         <pre><em class="file_name"><i class="devicons devicons-npm"></i>&nbsp;package.json</em><code class="javascript">
      "scripts": {
         "dev": "webpack-dev-server",
-        "prod": "npm run clean && webpack -p",
+        "prod": "npm run clean && NODE_ENV=production webpack -p",
         "clean": "rimraf ./dist/*"
     }
                         </code></pre>
@@ -867,9 +921,8 @@
 
 
                     <section>
-                        <h2>File Loader</h2>
-                        <p>webpack은 모든 것을 모듈로 처리</p>
-                        <p>file-loader를 통해 파일을 복사 (실제 사용되는 파일만 복사)</p>
+                        <h2>File Loader (기타 파일 번들링)</h2>
+                        <p>webpack은 모든 것을 모듈로 처리<br>file-loader를 통해 파일을 복사 (실제 사용되는 파일만 복사)</p>
 
                         <pre><code class="bash">
     $ npm i file-loader --save-dev
