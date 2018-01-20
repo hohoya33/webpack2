@@ -760,6 +760,43 @@ module: {
 <img src={require('이미지경로')} />
 
 
+### CommonsChunkPlugin
+공통으로 사용되는 모듈을 빼내어서 공통(common) 번들에 추가하고, 공통 번들이 존재하지 않으면 새로운 번들을 만들어 줍니다. 
+```js
+//------ webpack.config.js ------
+const webpack = require('webpack');
+
+module.exports = {
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'commons', //the commons chunk name
+        filename: 'commons.js', //the filename of the commons chunk
+        minChunks: function (module) {
+            // this assumes your vendor imports exist in the node_modules directory
+            return module.context && module.context.indexOf('node_modules') !== -1;
+        }
+        //chunks: ['pageA', 'pageB'], //Only use these entries
+    }),
+  ]
+}
+```
+### ProvidePlugin
+모듈을 자동으로 로드. 모듈에서 임의의 변수로 식별될 때마다 모듈이 자동으로 로드되며, 이 모듈은 로드된 모듈의 내보내기 모듈로 채워진다.
+```js
+//------ webpack.config.js ------
+const webpack = require('webpack');
+
+module.exports = {
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jquery: 'jquery'
+        })
+    ]
+}
+```
+
+
 ### UglifyJS Plugin
 minify를 통해 소스 용량을 줄여주고, uglify를 통해 난독화 및 console.log를 제거해 주는 기능
 
@@ -770,6 +807,7 @@ const webpack = require('webpack');
 module.exports = {
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
+        sourceMap: true,
         compressor: {
             warnings: false
         }
